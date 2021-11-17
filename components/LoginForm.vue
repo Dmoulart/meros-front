@@ -8,7 +8,7 @@
       <el-input type="password" v-model="form.password" autocomplete="off"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submit('form')">Se connecter</el-button>
+      <el-button type="primary" @click="submit()">Se connecter</el-button>
     </el-form-item>
   </el-form>
   </div>
@@ -21,7 +21,6 @@ import {
 } from "nuxt-property-decorator"
 @Component({})
 export default class Login extends Vue {
-  name="Login"
   form = {
     email: '',
     password: '',
@@ -29,11 +28,10 @@ export default class Login extends Vue {
 
   rules = {}
 
-  async submit(form: any){
+  async submit(){
     try {
-      const data = {username:this.form.email,password:this.form.password}
-      let response = await this.$auth.loginWith('local', { data })
-      console.log(response)
+      const data = { username: this.form.email, password: this.form.password }
+      const res = await this.$auth.loginWith('local', { data })
     } catch (err) {
       console.log(err)
     }

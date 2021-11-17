@@ -51,12 +51,12 @@ export default {
         },
         user: {
           property: 'user',
-          // autoFetch: true
+          autoFetch: true
         },
         endpoints: {
           login: { url: 'http://localhost:8000/api/login_check', method: 'post' },
-/*          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get' }*/
+/*          logout: { url: '/api/auth/logout', method: 'post' },*/
+          user: { url: 'http://localhost:8000/me', method: 'get' }
         }
       }
     }
