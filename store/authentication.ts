@@ -1,5 +1,6 @@
-import {Module, VuexModule} from "vuex-module-decorators";
+// import { Module, VuexModule } from 'vuex-module-decorators'
 
+/*
 @Module({
   name: 'authentication',
   stateFactory: true,
@@ -8,3 +9,4 @@ import {Module, VuexModule} from "vuex-module-decorators";
 export default class Authentication extends VuexModule {
 
 }
+*/
