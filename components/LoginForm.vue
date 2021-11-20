@@ -1,13 +1,13 @@
 <template>
-  <div style="width:20vw">
+  <el-container>
     <el-form
       ref="form"
       :model="form"
       status-icon
       :rules="rules"
+      label-position="top"
       label-width="120px"
       class="demo-ruleForm"
-      size="mini"
     >
       <el-form-item label="Email" prop="email">
         <el-input v-model="form.email" type="text" autocomplete="off" />
@@ -18,12 +18,12 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submit()">
+        <el-button type="success" round @click="submit()">
           Se connecter
         </el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts">
