@@ -32,7 +32,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
+    '@nuxt/typescript-build'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -55,15 +55,17 @@ export default {
         },
         endpoints: {
           login: { url: 'http://localhost:8000/api/login_check', method: 'post' },
-/*          logout: { url: '/api/auth/logout', method: 'post' },*/
+          /*          logout: { url: '/api/auth/logout', method: 'post' }, */
           user: { url: 'http://localhost:8000/me', method: 'get' }
         }
       }
     }
   },
-
+  router: {
+    middleware: ['auth']
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/],
+    transpile: [/^element-ui/]
   }
 }

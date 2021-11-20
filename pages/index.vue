@@ -6,11 +6,11 @@
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-@Component
+@Component({})
 export default class Home extends Vue {
-  asyncData ({ redirect }: any) {
+  asyncData (context:any) {
     console.log('router')
-    console.log(redirect)
+    console.log(context)
   }
 }
 </script>
