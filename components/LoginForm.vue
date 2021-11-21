@@ -1,36 +1,12 @@
 <template>
   <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center">
     <form>
-      <m-input field="Email" />
+      <m-input field="Email" icon="user" />
       <br>
-      <m-input field="Mot de passe" :is-password="true" />
+      <br>
+      <m-input field="Mot de passe" icon="password" :is-password="true" />
     </form>
   </div>
-<!--  <el-container>
-    <el-form
-      ref="form"
-      :model="form"
-      status-icon
-      :rules="rules"
-      label-position="top"
-      label-width="120px"
-      class="demo-ruleForm"
-    >
-      <el-form-item label="Email" prop="email">
-        <el-input v-model="form.email" type="text" autocomplete="off" />
-      </el-form-item>
-
-      <el-form-item label="Password" prop="password">
-        <el-input v-model="form.password" type="password" autocomplete="off" />
-      </el-form-item>
-
-      <el-form-item>
-        <el-button type="success" round @click="submit()">
-          Se connecter
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </el-container>-->
 </template>
 
 <script lang="ts">

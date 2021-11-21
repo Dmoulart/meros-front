@@ -1,8 +1,10 @@
 <template>
   <div :id="`input-${field}`" class="input" @change="trim()">
+    <svg-icon v-if="icon" class="input__icon" :name="icon" />
     <input
       :id="`input-field-${field}`"
       class="input__field"
+      :class="icon ? 'input__field--icon' : ''"
       :name="`input-field-${field}`"
       :type="isPassword
         ?
@@ -11,7 +13,12 @@
           'text'"
       placeholder="  "
     >
-    <label class="input__label" :for="`input-field-${field}`"> {{ field }}</label>
+
+    <label
+      class="input__label"
+      :class="icon ? 'input__label--icon' : ''"
+      :for="`input-field-${field}`"
+    > {{ field }}</label>
   </div>
 </template>
 
@@ -24,7 +31,7 @@ import {
 export default class MInput extends Vue {
   name = 'm-input'
 
-  inputElement!:HTMLInputElement
+  inputElement!: HTMLInputElement
 
   @Prop({ default: '' })
     field!:string
@@ -66,17 +73,23 @@ $font-size-input: $font-size;
     opacity:0.5;
     font-weight: 100;
     font-variant-caps: small-caps;
-
+    letter-spacing: 2px;
     // Bring the scaled label on top left
     -webkit-transform-origin: top left;
     -moz-transform-origin: top left;
     transform-origin: 0 0;
 
     transition: all .25s;
+
+    &--icon{
+      background-color :pink;
+      padding-left: 24px;
+    }
   }
 
   &__field{
     position:relative;
+    width: 100%;
     padding: 4px 4px;
     border-radius: 0;
     border:none;
@@ -93,13 +106,29 @@ $font-size-input: $font-size;
       outline:none;
       border-bottom: 1px solid darken($border-color, 10%);
       &~.input__label{
-        transform: translateY(($font-size-input + 4px) * -1) scale(0.7);
+        transform: translateY(($font-size-input) * -1) scale(0.7);
         color: darken($font-color-input,40%);
         opacity:1;
+        &--icon{
+          // Move label top left when icon
+          transform: translateY(($font-size-input) * -1) translateX(-24px) scale(0.7);
+        }
       }
     }
-  }
 
+  }
+  &__label--icon, &__field--icon{
+    padding-left: 24px;
+    transform-origin: 24px 0;
+    //transform:
+  }
+  &__icon{
+    position: absolute;
+    left:0;
+    width: 16px;
+    height: 20px;
+    z-index:1;
+  }
 }
 //Required to remove the background color browser autofill
 input:-internal-autofill-selected{
