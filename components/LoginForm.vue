@@ -1,7 +1,11 @@
 <template>
-  <form>
-    <Input />
-  </form>
+  <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center">
+    <form>
+      <m-input field="Email" />
+      <br>
+      <m-input field="Mot de passe" :is-password="true" />
+    </form>
+  </div>
 <!--  <el-container>
     <el-form
       ref="form"
