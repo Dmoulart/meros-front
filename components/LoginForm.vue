@@ -1,5 +1,8 @@
 <template>
-  <el-container>
+  <form>
+    <Input />
+  </form>
+<!--  <el-container>
     <el-form
       ref="form"
       :model="form"
@@ -23,7 +26,7 @@
         </el-button>
       </el-form-item>
     </el-form>
-  </el-container>
+  </el-container>-->
 </template>
 
 <script lang="ts">
