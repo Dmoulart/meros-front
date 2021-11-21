@@ -8,6 +8,7 @@
       label-position="top"
       label-width="120px"
       class="demo-ruleForm"
+      size="medium"
     >
       <el-form-item label="Email" prop="email">
         <el-input v-model="form.email" type="text" autocomplete="off" />
@@ -18,9 +19,11 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="success" round @click="submit()">
-          Se connecter
-        </el-button>
+        <el-row type="flex" justify="center">
+          <el-button type="success" round style="width:100%" @click="submit()">
+            Se connecter
+          </el-button>
+        </el-row>
       </el-form-item>
     </el-form>
   </el-container>
@@ -52,5 +55,7 @@ export default class Login extends Vue {
 </script>
 
 <style scoped>
-
+input{
+  border-radius:50%;
+}
 </style>
