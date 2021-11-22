@@ -53,11 +53,16 @@ export default class MInput extends Vue {
 </script>
 
 <style lang="scss">
-$border-radius : 15px;
 $background-color : $grey-400;
 $font-color-input : $text-regular-color;
 $border-color: darken($background-color, 10%);
 $font-size-input: $font-size;
+$letter-spacing: 2px;
+$border-radius : 15px;
+$icon-width: 16px;
+$icon-height: 20px;
+$field-offset-when-icon: $icon-width + 8px;
+$label-scale-factor: 0.7;
 
 .input{
   position:relative;
@@ -70,21 +75,16 @@ $font-size-input: $font-size;
     left:0;
     top: 0;
     padding: 2px 4px;
-    opacity:0.5;
     font-weight: 100;
     font-variant-caps: small-caps;
-    letter-spacing: 2px;
+    letter-spacing: $letter-spacing;
+
     // Bring the scaled label on top left
     -webkit-transform-origin: top left;
     -moz-transform-origin: top left;
     transform-origin: 0 0;
 
-    transition: all .25s;
-
-    &--icon{
-      background-color :pink;
-      padding-left: 24px;
-    }
+    transition: all .25s ease-out;
   }
 
   &__field{
@@ -96,7 +96,7 @@ $font-size-input: $font-size;
     border-bottom: 1px solid $border-color;
     background-color: transparent;
     color: $font-color-input;
-    transition: all .25s;
+    transition: all .25s ease-in;
 
     &:focus,
     &:active,
@@ -106,27 +106,26 @@ $font-size-input: $font-size;
       outline:none;
       border-bottom: 1px solid darken($border-color, 10%);
       &~.input__label{
-        transform: translateY(($font-size-input) * -1) scale(0.7);
+        transform: translateY(-$font-size-input) scale($label-scale-factor);
         color: darken($font-color-input,40%);
         opacity:1;
         &--icon{
           // Move label top left when icon
-          transform: translateY(($font-size-input) * -1) translateX(-24px) scale(0.7);
+          transform: translateY(-$font-size-input) translateX(-$field-offset-when-icon) scale($label-scale-factor);
         }
       }
     }
 
   }
   &__label--icon, &__field--icon{
-    padding-left: 24px;
-    transform-origin: 24px 0;
-    //transform:
+    padding-left: $field-offset-when-icon;
+    transform-origin: $field-offset-when-icon 0;
   }
   &__icon{
     position: absolute;
     left:0;
-    width: 16px;
-    height: 20px;
+    width: $icon-width;
+    height: $icon-height;
     z-index:1;
   }
 }
