@@ -13,7 +13,6 @@
           'text'"
       placeholder="  "
     >
-
     <label
       class="input__label"
       :class="icon ? 'input__label--icon' : ''"
@@ -42,17 +41,22 @@ export default class MInput extends Vue {
   @Prop({ default: null })
     icon!:string | null
 
+  @Prop({ default: 'medium' })
+    size!: 'small' | 'medium' | 'big'
+
   mounted () {
     this.inputElement = document.getElementById(`input-field-${this.field}`) as HTMLInputElement
   }
 
   trim (): void {
-    this.inputElement.value = this.inputElement.value.trim()
+    // We trim the fields that are not passwords
+    this.inputElement.value = this.isPassword ? this.inputElement.value : this.inputElement.value.trim()
   }
 }
 </script>
 
 <style lang="scss">
+
 $background-color : $grey-400;
 $font-color-input : $text-regular-color;
 $border-color: darken($background-color, 10%);
@@ -75,14 +79,21 @@ $label-scale-factor: 0.7;
     left:0;
     top: 0;
     padding: 2px 4px;
-    font-weight: 100;
+    font-weight: 400;
     font-variant-caps: small-caps;
     letter-spacing: $letter-spacing;
+    color: darken($border-color,10%);
 
     // Bring the scaled label on top left
     -webkit-transform-origin: top left;
     -moz-transform-origin: top left;
     transform-origin: 0 0;
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;/* Non-prefixed version, currently*/
 
     transition: all .25s ease-out;
   }
@@ -96,15 +107,30 @@ $label-scale-factor: 0.7;
     border-bottom: 1px solid $border-color;
     background-color: transparent;
     color: $font-color-input;
+    letter-spacing: $letter-spacing*.6;
     transition: all .25s ease-in;
+
+    &:focus,
+    &:active{
+      outline:none;
+      border-bottom: 1px solid darken($border-color, 20%);
+      animation: move .75s;
+      @keyframes move {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: calc(100% );
+        }
+      }
+    }
 
     &:focus,
     &:active,
     &:not(:placeholder-shown),
     &:optional:not(:placeholder-shown),
     & .input__label:focus, & .input__label:active{
-      outline:none;
-      border-bottom: 1px solid darken($border-color, 10%);
+
       &~.input__label{
         transform: translateY(-$font-size-input) scale($label-scale-factor);
         color: darken($font-color-input,40%);
