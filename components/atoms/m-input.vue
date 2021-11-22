@@ -73,6 +73,7 @@ $label-scale-factor: 0.7;
   font-size: $font-size-input;
   font-weight: 200;
   color: $font-color-input;
+  margin-block: $input-margin-block;
 
   &__label, &__label:placeholder-shown{
     position:absolute;
@@ -95,6 +96,8 @@ $label-scale-factor: 0.7;
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;/* Non-prefixed version, currently*/
 
+    cursor: pointer;
+
     transition: all .25s ease-out;
   }
 
@@ -109,7 +112,7 @@ $label-scale-factor: 0.7;
     color: $font-color-input;
     letter-spacing: $letter-spacing*.6;
     transition: all .25s ease-in;
-
+    cursor: pointer;
     &:focus,
     &:active{
       outline:none;
@@ -125,12 +128,17 @@ $label-scale-factor: 0.7;
       }
     }
 
+    &--icon{
+      // Avoid the overflowing when an icon is attached
+      width: calc(100% - #{$field-offset-when-icon});
+    }
+
     &:focus,
     &:active,
     &:not(:placeholder-shown),
     &:optional:not(:placeholder-shown),
     & .input__label:focus, & .input__label:active{
-
+      cursor: text;
       &~.input__label{
         transform: translateY(-$font-size-input) scale($label-scale-factor);
         color: darken($font-color-input,40%);

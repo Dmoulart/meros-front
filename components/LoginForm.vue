@@ -1,10 +1,17 @@
 <template>
   <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center">
     <form>
-      <m-input field="Email" icon="user" />
-      <br>
-      <br>
-      <m-input field="Mot de passe" icon="password" :is-password="true" />
+      <m-input-group>
+        <m-input field="Email" icon="user" />
+      </m-input-group>
+
+      <m-input-group>
+        <m-input field="Mot de passe" icon="password" :is-password="true" />
+      </m-input-group>
+
+      <m-input-group>
+        <m-button message="Se connecter" />
+      </m-input-group>
     </form>
   </div>
 </template>
