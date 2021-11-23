@@ -22,7 +22,7 @@ export default class MButton extends Vue {
 <style lang="scss">
 $button-font-family: $font-family;
 $button-color: $button-primary-color;
-$button-radius: 24px;
+$button-radius: 12px;
 $button-font-color: $white;
 $button-font-size: $font-size;
 

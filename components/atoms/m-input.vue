@@ -56,7 +56,6 @@ export default class MInput extends Vue {
 </script>
 
 <style lang="scss">
-
 $background-color : $grey-400;
 $font-color-input : $text-regular-color;
 $border-color: darken($background-color, 10%);
@@ -73,7 +72,6 @@ $label-scale-factor: 0.7;
   font-size: $font-size-input;
   font-weight: 200;
   color: $font-color-input;
-  margin-block: $input-margin-block;
 
   &__label, &__label:placeholder-shown{
     position:absolute;
