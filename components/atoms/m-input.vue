@@ -113,8 +113,11 @@ $label-scale-factor: 0.7;
     letter-spacing: $letter-spacing*.6;
     transition: all .25s ease-in;
     cursor: pointer;
+
     &:focus,
-    &:active{
+    &:active,
+    &:not(:placeholder-shown),// Do not show the animation if the field is filled
+    &:optional:not(:placeholder-shown){
       outline:none;
       border-bottom: 1px solid darken($border-color, 20%);
       animation: move .75s;
@@ -123,7 +126,7 @@ $label-scale-factor: 0.7;
           width: 0;
         }
         100% {
-          width: calc(100% );
+          width: calc(100% - #{$field-offset-when-icon});
         }
       }
     }

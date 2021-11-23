@@ -4,4 +4,4 @@ $grey-400: #EDEDED;
 $green: #B1E693;
 
 $text-regular-color: darken($grey-400,50%);
-$button-primary-color: $green;
+$button-primary-color: darken($green,15%);

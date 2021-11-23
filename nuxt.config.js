@@ -32,7 +32,9 @@ export default {
     preload: true,
     download: true,
     families: {
-      Roboto: true
+      Roboto: true,
+      NotoSans: true,
+      NunitoSans: true
     }
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
