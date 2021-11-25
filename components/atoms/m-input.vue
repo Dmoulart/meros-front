@@ -131,7 +131,7 @@ $label-scale-factor: 0.7;
 
     &--icon{
       // Avoid the overflowing when an icon is attached
-      width: calc(100% - #{$field-offset-when-icon});
+      width: calc(100% - (#{$field-offset-when-icon} + 8px));
     }
 
     &:focus,

@@ -1,19 +1,17 @@
 <template>
-  <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center">
-    <m-panel class="login">
-      <form class="login__form">
-        <m-input-group class="login__form__input">
-          <m-input field="Email" icon="user" />
-        </m-input-group>
+  <m-panel class="login">
+    <img src="/img/logo.svg" class="login__logo" :alt="owner.name">
+    <form id="login" class="login__form">
+      <m-input-group class="login__form__input">
+        <m-input field="Email" icon="user" />
+      </m-input-group>
 
-        <m-input-group class="login__form__input">
-          <m-input field="Mot de passe" icon="password" :is-password="true" />
-        </m-input-group>
-
-        <m-button class="login__form__submit" message="Se connecter" />
-      </form>
-    </m-panel>
-  </div>
+      <m-input-group class="login__form__input">
+        <m-input field="Mot de passe" icon="password" :is-password="true" />
+      </m-input-group>
+    </form>
+    <m-button class="login__form__submit" message="Se connecter" />
+  </m-panel>
 </template>
 
 <script lang="ts">
@@ -21,8 +19,11 @@ import {
   Component,
   Vue
 } from 'nuxt-property-decorator'
+import * as owner from '../owner/owner.json'
 @Component({})
 export default class Login extends Vue {
+  owner = owner
+
   form = {
     email: '',
     password: ''
@@ -43,29 +44,42 @@ export default class Login extends Vue {
 
 <style lang="scss" scoped>
 .login{
-  width: 60%;
-
+  height: 45vh;
+  max-width: 50vw;
   @include sm{
-    width: 50%;
+    max-width: 35vw;
   }
 
   @include md{
-    width:35%;
+    min-width: 18vw;
   }
 
   @include lg{
-    width:20%;
+    max-width: 18vw;
+  }
+
+  &__logo {
+    align-self: flex-start;
+    width: 100px;
+    height: auto;
   }
 
   &__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow:1;
+    margin-top: 14px;
     width:100%;
 
     &__input{
-      margin-block: 48px;
+      // margin-block: 48px;
     }
 
     &__submit{
+      margin-block-start: 24px;
       justify-self: flex-end;
+      height:48px;
     }
    }
 }

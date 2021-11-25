@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import {
-  Component, Prop, Vue
+  Component, Vue
 } from 'nuxt-property-decorator'
     @Component({})
 export default class MInputGroup extends Vue {
@@ -15,8 +15,8 @@ export default class MInputGroup extends Vue {
 </script>
 
 <style lang="scss">
-$input-group-margin-block: $input-margin-block * 1.80;
+$input-group-margin-block: $input-margin-block;
   .input-group{
-    margin-block: $input-group-margin-block;
+    margin-block-end: $input-group-margin-block;
   }
 </style>
