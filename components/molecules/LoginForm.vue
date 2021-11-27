@@ -3,23 +3,23 @@
     <img src="/img/logo.svg" class="login__logo" :alt="owner.name">
     <form id="login" class="login__form">
       <m-input-group class="login__form__input">
-        <m-input field="Email" icon="user" />
+        <m-input v-model="form.email" field="Email" icon="user" />
       </m-input-group>
 
       <m-input-group class="login__form__input">
-        <m-input field="Mot de passe" icon="password" :is-password="true" />
+        <m-input v-model="form.password" field="Mot de passe" icon="password" :is-password="true" />
       </m-input-group>
     </form>
-    <m-button class="login__form__submit" message="Se connecter" />
+    <m-button class="login__form__submit" message="Se connecter" @click="submit()" />
   </m-panel>
 </template>
 
 <script lang="ts">
 import {
-  Component,
+  Component, On,
   Vue
 } from 'nuxt-property-decorator'
-import * as owner from '../owner/owner.json'
+import * as owner from '../../owner/owner.json'
 @Component({})
 export default class Login extends Vue {
   owner = owner
@@ -32,8 +32,11 @@ export default class Login extends Vue {
   rules = {}
 
   async submit () {
+    const data = { username: this.form.email, password: this.form.password }
+    this.$auth.onError(() => {
+      console.log('wololo')
+    })
     try {
-      const data = { username: this.form.email, password: this.form.password }
       await this.$auth.loginWith('local', { data })
     } catch (err) {
       console.warn(err)

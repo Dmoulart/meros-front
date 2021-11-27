@@ -12,6 +12,8 @@
         :
           'text'"
       placeholder="  "
+      :value="value"
+      @input="$emit('input', $event.target.value)"
     >
     <label
       class="input__label"
@@ -31,6 +33,8 @@ export default class MInput extends Vue {
   name = 'm-input'
 
   inputElement!: HTMLInputElement
+
+  value = ''
 
   @Prop({ default: '' })
     field!:string

@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="button" @click="$emit('click')">
     {{ message }}
   </button>
 </template>
@@ -7,7 +7,7 @@
 <script lang="ts">
 
 import {
-  Component, Prop,
+  Component, Emit, Prop,
   Vue
 } from 'nuxt-property-decorator'
 
