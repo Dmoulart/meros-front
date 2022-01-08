@@ -15,7 +15,7 @@ export default class MInputGroup extends Vue {
 </script>
 
 <style lang="scss">
-$input-group-margin-block: $input-margin-block;
+$input-group-margin-block: 24px;
   .input-group{
     margin-block-end: $input-group-margin-block;
   }

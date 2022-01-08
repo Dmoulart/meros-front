@@ -1,5 +1,5 @@
 <template>
-  <button class="button" @click="$emit('click')">
+  <button class="button" @click="click">
     {{ message }}
   </button>
 </template>
@@ -16,6 +16,11 @@ export default class MButton extends Vue {
   name = 'm-button'
   @Prop({ default: 'Valider' })
     message!:string
+
+  @Emit('click')
+  click () {
+    // Add logic
+  }
 }
 </script>
 
@@ -29,7 +34,7 @@ $button-font-size: $font-size;
 .button{
   font-family: $button-font-family;
   width:100%;
-  height:32px;
+  height: 52px;
   border-radius: $button-radius;
   background-color: $button-color;
   color: $button-font-color;

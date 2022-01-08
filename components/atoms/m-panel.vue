@@ -21,7 +21,7 @@ export default class MPanel extends Vue {
 $panel-border-radius: 29px;
 $panel-background-color: $white;
 $panel-padding-x: 32px;
-$panel-padding-y: $panel-padding-x / 2;
+$panel-padding-y: 32px;
 
 .panel{
   display:flex;

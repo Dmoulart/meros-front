@@ -1,6 +1,23 @@
 <template>
   <div class="login-page">
-    <LoginForm message="Bienvenue !" />
+    <div class="login-page__presentation">
+      <h1>{{ owner.name }}</h1>
+      <img
+        src="/img/logo.svg"
+        class="login-page__presentation__logo"
+        :alt="owner.name"
+      >
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+        vestibulum nisl dui, et vehicula sapien suscipit id. Sed pretium felis
+        nec est luctus pharetra. Aliquam dolor ligula, mollis sed enim at,
+        lacinia blandit nunc. In commodo semper ligula at sollicitudin. Cras
+        fringilla tristique leo ut tempus. Maecenas suscipit auctor mi. Proin ut
+        turpis nec metus fringilla pharetra sit amet non nibh. Nulla sed posuere
+        metus, id elementum leo.
+      </p>
+    </div>
+    <LoginForm />
   </div>
 </template>
 
