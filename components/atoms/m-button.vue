@@ -1,21 +1,19 @@
 <template>
   <button class="button" @click="click">
-    {{ message }}
+    <slot />
   </button>
 </template>
 
 <script lang="ts">
 
 import {
-  Component, Emit, Prop,
+  Component, Emit,
   Vue
 } from 'nuxt-property-decorator'
 
 @Component({})
 export default class MButton extends Vue {
   name = 'm-button'
-  @Prop({ default: 'Valider' })
-    message!:string
 
   @Emit('click')
   click () {

@@ -26,7 +26,6 @@ $panel-padding-y: 32px;
 .panel{
   display:flex;
   flex-flow: column;
-  justify-content:space-between;
   align-items:center;
   padding: $panel-padding-y $panel-padding-x;
   border-radius: $panel-border-radius;

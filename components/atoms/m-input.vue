@@ -1,51 +1,88 @@
 <template>
-  <div :id="`input-${field}`" class="input" @change="trim()">
-    <svg-icon v-if="icon" class="input__icon" :name="icon" />
-    <input
-      :id="`input-field-${field}`"
-      class="input__field"
-      :class="icon ? 'input__field--icon' : ''"
-      :name="`input-field-${field}`"
-      :type="isPassword ? 'password' : 'text'"
-      placeholder="  "
-      :value="value"
-      @input="$emit('input', $event.target.value)"
-    >
-    <label
-      class="input__label"
-      :class="icon ? 'input__label--icon' : ''"
-      :for="`input-field-${field}`"
-    >
-      {{ field }}</label>
+  <div>
+    <div :id="`input-${field}`" class="input" @change="change">
+      <svg-icon v-if="icon" class="input__icon" :name="icon" />
+      <input
+        :id="`input-field-${field}`"
+        class="input__field"
+        :class="icon ? 'input__field--icon' : ''"
+        :name="`input-field-${field}`"
+        :type="isPassword ? 'password' : 'text'"
+        placeholder="  "
+        @input="input"
+      >
+      <label
+        class="input__label"
+        :class="icon ? 'input__label--icon' : ''"
+        :for="`input-field-${field}`"
+      >
+        {{ field }}</label>
+    </div>
+    <div v-if="throwErrorMessage" class="input__throwError">
+      {{ throwErrorMessage }}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { Component, Emit, Prop, Vue } from 'nuxt-property-decorator'
 @Component({})
 export default class MInput extends Vue {
-  @Prop({ default: '' })
+  @Prop({ type: String, default: '' })
     field!: string
 
-  @Prop({ default: false })
+  @Prop({ type: Boolean, default: false })
     isPassword!: boolean
 
-  @Prop({ default: null })
+  @Prop({ type: String, default: null })
     icon!: string | null
 
-  @Prop({ default: 'medium' })
+  @Prop({ type: String, default: 'medium' })
     size!: 'small' | 'medium' | 'big'
+
+  @Prop({ type: Function, default: null })
+    validation! : Function | null
+
+  @Prop({ type: Boolean, default: false })
+    displayError! : boolean
 
   name = 'm-input'
 
   inputElement!: HTMLInputElement
 
-  value = ''
+  throwErrorMessage = ''
 
   mounted () {
     this.inputElement = document.getElementById(
       `input-field-${this.field}`
     ) as HTMLInputElement
+  }
+
+  @Emit()
+  input ({ target: { value } }: { target: { value: string } }) {
+    if (!this.validation || !value.length) {
+      this.resetErrorMessage()
+      return
+    }
+    const result = this.validation(value)
+    const hasErrorMessage = typeof result === 'string'
+    hasErrorMessage ? this.throwError(result) : this.resetErrorMessage()
+  }
+
+  change (): void {
+    // this.trim()
+  }
+
+  throwError (validation: string | boolean): string | boolean {
+    this.$parent.$emit('error', { validation, displayError: this.displayError, input: this })
+    if (this.displayError && typeof validation === 'string') {
+      this.throwErrorMessage = validation as string
+    }
+    return validation
+  }
+
+  resetErrorMessage (): void {
+    this.throwErrorMessage = ''
   }
 
   trim (): void {
@@ -59,6 +96,7 @@ export default class MInput extends Vue {
 
 <style lang="scss">
 $background-color: $grey-400;
+$font-color-throwError: $danger;
 $font-color-input: $text-regular-color;
 $border-color: darken($background-color, 10%);
 $font-size-input: $font-size;
@@ -106,10 +144,7 @@ $label-scale-factor: 0.7;
 
   &__field {
     position: relative;
-    //creepy .... Refactor this
     width: 100%;
-    // width: -webkit-fill-available;
-    // width: -moz-fill-available;
     padding: 4px 4px;
     padding-bottom: 12px;
     border-radius: 0;
@@ -192,6 +227,11 @@ $label-scale-factor: 0.7;
     height: $icon-height;
     z-index: 1;
   }
+  &__throwError{
+    position: absolute;
+    color: $font-color-throwError;
+  }
+
 }
 //Required to remove the background color browser autofill
 input:-internal-autofill-selected {

@@ -7,16 +7,30 @@
       </h2>
     </header>
 
-    <form id="login" class="login__form">
-      <m-input-group class="login__input">
-        <m-input v-model="form.email" icon="user" field="Email" />
-      </m-input-group>
+    <m-form id="login" class="login__form">
+      <template #fields>
+        <m-input-group class="login__input">
+          <m-input v-model="form.email" icon="user" field="Email" :validation="rules.email" :display-error="true" />
+        </m-input-group>
 
-      <m-input-group class="login__input">
-        <m-input v-model="form.password" field="Mot de passe" icon="password" :is-password="true" />
-      </m-input-group>
-    </form>
-    <m-button class="login__submit" message="Se connecter" @click="submit()" />
+        <m-input-group class="login__input">
+          <m-input
+            v-model="form.password"
+            field="Mot de passe"
+            icon="password"
+            :is-password="true"
+            :validation="rules.min(6)"
+            :display-error="true"
+          />
+        </m-input-group>
+      </template>
+
+      <template #submit>
+        <m-button class="login__submit" message="Se connecter" @click="submit()">
+          Se connecter
+        </m-button>
+      </template>
+    </m-form>
   </m-panel>
 </template>
 
@@ -27,20 +41,20 @@ import {
   Vue
 } from 'nuxt-property-decorator'
 import { ownerData } from '../../owner'
-
+import { rules } from '@/validation/rules'
 @Component({})
 export default class Login extends Vue {
-  owner = ownerData
-
   @Prop({ type: String })
     message !: string
+
+  owner = ownerData
+
+  rules = rules
 
   form = {
     email: '',
     password: ''
   }
-
-  rules = {}
 
   async submit () {
     const data = { username: this.form.email, password: this.form.password }
@@ -59,26 +73,8 @@ export default class Login extends Vue {
 
 <style lang="scss" scoped>
 .login{
-  // height: 65vh;
-  // max-width: 400px;
-  //max-width: 50vw;
-  // min-width: 280px;
-  // max-height: 568px;
-  height: 45vh;
+  min-width: max(280px, 25vw);
 
-  min-width: 280px;
-  aspect-ratio: 1/2;
-  @include sm{
-    //max-width: 35vw;
-  }
-
-  @include md{
-    //min-width: 18vw;
-  }
-
-  @include lg{
-    //max-width: 18vw;
-  }
   &__header {
     position: relative;
     display:flex;
@@ -89,30 +85,15 @@ export default class Login extends Vue {
   }
 
   &__title{
-
     margin-right: auto;
     margin-left: auto;
   }
 
   &__logo {
+    display:none;
     position: absolute;
     width: 100px;
     height: auto;
-    display:none;
   }
-
-  &__form{
-    display: flex;
-    flex-direction: column;
-    //justify-content: space-evenly;
-    //flex-grow:1;
-    margin-top: 14px;
-    width:100%;
-  }
-
-    &__submit{
-      justify-self: flex-end;
-      height:48px;
-    }
 }
 </style>
