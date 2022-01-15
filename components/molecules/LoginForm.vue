@@ -77,7 +77,7 @@ export default class Login extends Vue {
     if (!isValid) { return }
     const credentials = { username: data[this.fields.email], password: data[this.fields.password] }
     try {
-      await this.$auth.loginWith('local', credentials)
+      await this.$auth.loginWith('local', { data: credentials })
     } catch (error) {
       this.errors = this.errorMessages[error as string]
     }
