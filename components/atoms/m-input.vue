@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :id="`input-${field}`" class="input" @change="change">
+    <div :id="`input-${field}`" class="input">
       <svg-icon v-if="icon" class="input__icon" :name="icon" />
       <input
         :id="`input-field-${field}`"
@@ -18,14 +18,15 @@
       >
         {{ field }}</label>
     </div>
-    <div v-if="throwErrorMessage" class="input__throwError">
-      {{ throwErrorMessage }}
+    <div v-show="error" class="input__error">
+      {{ error }}
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Emit, Prop, Vue } from 'nuxt-property-decorator'
+import { validate } from '@/validation/rules'
 @Component({})
 export default class MInput extends Vue {
   @Prop({ type: String, default: '' })
@@ -41,7 +42,7 @@ export default class MInput extends Vue {
     size!: 'small' | 'medium' | 'big'
 
   @Prop({ type: Function, default: null })
-    validation! : Function | null
+    rules! : ((...args: any) => boolean|string) | null
 
   @Prop({ type: Boolean, default: false })
     displayError! : boolean
@@ -50,7 +51,9 @@ export default class MInput extends Vue {
 
   inputElement!: HTMLInputElement
 
-  throwErrorMessage = ''
+  error : string = ''
+
+  value: string = ''
 
   mounted () {
     this.inputElement = document.getElementById(
@@ -60,43 +63,38 @@ export default class MInput extends Vue {
 
   @Emit()
   input ({ target: { value } }: { target: { value: string } }) {
-    if (!this.validation || !value.length) {
-      this.resetErrorMessage()
-      return
-    }
-    const result = this.validation(value)
-    const hasErrorMessage = typeof result === 'string'
-    hasErrorMessage ? this.throwError(result) : this.resetErrorMessage()
+    this.validateInput(value)
+    return (this.value = value)
   }
 
-  change (): void {
-    // this.trim()
+  validateInput (value:string = this.inputElement.value): string|null {
+    if (!this.rules) { return null }
+
+    this.error = validate(this.rules)(value).error ?? ''
+
+    this.error ? this.emitError() : this.clearError()
+
+    return this.error
   }
 
-  throwError (validation: string | boolean): string | boolean {
-    this.$parent.$emit('error', { validation, displayError: this.displayError, input: this })
-    if (this.displayError && typeof validation === 'string') {
-      this.throwErrorMessage = validation as string
-    }
-    return validation
+  emitError (): string | boolean {
+    this.$parent.$emit('error', {
+      error: this.error,
+      displayError: this.displayError,
+      input: this
+    })
+    return this.error
   }
 
-  resetErrorMessage (): void {
-    this.throwErrorMessage = ''
-  }
-
-  trim (): void {
-    // We trim the fields that are not passwords
-    this.inputElement.value = this.isPassword
-      ? this.inputElement.value
-      : this.inputElement.value.trim()
+  clearError (): void {
+    this.error = ''
   }
 }
 </script>
 
 <style lang="scss">
 $background-color: $grey-400;
-$font-color-throwError: $danger;
+$font-color-error: $danger;
 $font-color-input: $text-regular-color;
 $border-color: darken($background-color, 10%);
 $font-size-input: $font-size;
@@ -227,9 +225,9 @@ $label-scale-factor: 0.7;
     height: $icon-height;
     z-index: 1;
   }
-  &__throwError{
+  &__error{
     position: absolute;
-    color: $font-color-throwError;
+    color: $font-color-error;
   }
 
 }

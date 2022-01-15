@@ -11,3 +11,8 @@ export const rules = {
   pattern: (pattern: string) => (value: string) =>
     new RegExp(pattern).test(value) || 'Invalid format'
 }
+
+export const validate = (rule: (...args: Array<any>) => boolean | string) => (...args: Array<any>) => {
+  const result = rule(...args)
+  return typeof result === 'string' ? { error: result } : { error: null }
+}

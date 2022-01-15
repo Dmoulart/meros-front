@@ -46,14 +46,15 @@ export default class Login extends Vue {
   &__form {
     height: 50%;
   }
+
   &__presentation {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     order: -1;
     max-width: none;
     height: auto;
+
     @include tablet-portrait {
       order: 0;
       max-width: 50%;
