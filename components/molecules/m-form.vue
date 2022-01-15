@@ -55,10 +55,11 @@ export default class MForm extends Vue {
 
   get errors (): any {
     const errors = this.inputs.reduce((prev, input) => {
-      if (!input.error) {
+      const error = input.validateInput()
+      if (!error) {
         return { ...prev }
       }
-      return { ...prev, [input.field]: input.error }
+      return { ...prev, [input.field]: error }
     }, {})
     return Object.keys(errors).length ? errors : null
   }
@@ -67,6 +68,7 @@ export default class MForm extends Vue {
   submit (): {} {
     const submission = { errors: this.errors, data: this.formData }
     const isValid = submission.errors === null
+    console.log(submission, isValid)
     return { isValid, ...submission }
   }
 

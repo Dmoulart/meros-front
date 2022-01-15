@@ -71,7 +71,7 @@ export default class MInput extends Vue {
     if (!this.rules) { return null }
 
     this.error = validate(this.rules)(value).error ?? ''
-
+    console.log(this.error)
     this.error ? this.emitError() : this.clearError()
 
     return this.error
