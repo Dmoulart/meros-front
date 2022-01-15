@@ -66,21 +66,15 @@ export default class Login extends Vue {
     'Error: Request failed with status code 500': 'Oups, il y a eu un problème ! Veuillez réessayer plus tard.'
   }
 
-  beforeMount () {
-    this.$auth.onError((error, name, endpoint) => {
-      console.log(error, name, endpoint)
-      this.errors = (this.$auth.error) as unknown as string
-    })
+  async login ({ errors, data }: Submission): Promise<void> {
+    if (errors) { return }
+    const credentials = { username: data[this.fields.email], password: data[this.fields.password] }
+    // try {
+    await this.$auth.loginWith('local', { data: credentials }).catch(this.setErrors)
   }
 
-  async login ({ isValid, data }: Submission): Promise<void> {
-    if (!isValid) { return }
-    const credentials = { username: data[this.fields.email], password: data[this.fields.password] }
-    try {
-      await this.$auth.loginWith('local', { data: credentials })
-    } catch (error) {
-      this.errors = this.errorMessages[error as string]
-    }
+  setErrors (error: string): void {
+    this.errors = this.errorMessages[error]
   }
 }
 </script>
