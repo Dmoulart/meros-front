@@ -1,7 +1,7 @@
 <template>
-  <el-container>
+  <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center">
     <Nuxt />
-  </el-container>
+  </div>
 </template>
 
 <script lang="ts">

@@ -18,27 +18,53 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    '@/assets/css/global.scss'
+    // 'element-ui/lib/theme-chalk/index.css'
   ],
-
+  styleResources: {
+    scss: [
+      '~/assets/css/variables.scss'
+    ]
+  },
+  googleFonts: {
+    prefetch: true,
+    preconnect: true,
+    preload: true,
+    download: true,
+    families: {
+      Roboto: true,
+      NotoSans: true,
+      NunitoSans: true
+    }
+  },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/element-ui'
+    // '@/plugins/element-ui'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: {
+    dirs: [
+      '~/components',
+      '~/components/atoms',
+      '~/components/molecules',
+      '~/components/organisms'
+    ]
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build'
+    '@nuxt/typescript-build',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/svg-sprite'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/style-resources'
   ],
   auth: {
     strategies: {
@@ -66,6 +92,6 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [/^element-ui/]
+    // transpile: [/^element-ui/]
   }
 }
