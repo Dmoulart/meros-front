@@ -16,8 +16,6 @@ export default class MInputGroup extends Vue {
   @On('error')
   error (validation: string | boolean): string | boolean {
     this.$parent.$emit('error', validation)
-    console.log(this.$parent)
-    console.log(validation)
     return validation
   }
 }

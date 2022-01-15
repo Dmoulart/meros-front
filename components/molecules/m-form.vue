@@ -27,7 +27,7 @@ import {
   Vue
 } from 'nuxt-property-decorator'
 import MInput from '../atoms/m-input.vue'
-
+import { Submission } from '../../types/form'
 @Component({})
 export default class MForm extends Vue {
   name = 'm-form'
@@ -47,29 +47,23 @@ export default class MForm extends Vue {
     return allChildrenInputs(this)
   }
 
-  get formData (): any {
+  get formData (): Record<string, any> {
     return this.inputs.reduce((prev, input) => {
       return { ...prev, [input.field]: input.value }
     }, {})
   }
 
-  get errors (): any {
+  get errors (): Record<string, string>|null {
     const errors = this.inputs.reduce((prev, input) => {
       const error = input.validateInput()
-      if (!error) {
-        return { ...prev }
-      }
-      return { ...prev, [input.field]: error }
+      return error ? { ...prev, [input.field]: error } : { ...prev }
     }, {})
     return Object.keys(errors).length ? errors : null
   }
 
   @Emit('submit')
-  submit (): {} {
-    const submission = { errors: this.errors, data: this.formData }
-    const isValid = submission.errors === null
-    console.log(submission, isValid)
-    return { isValid, ...submission }
+  submit (): Submission {
+    return { errors: this.errors, data: this.formData, isValid: this.errors === null }
   }
 
   @On('error')

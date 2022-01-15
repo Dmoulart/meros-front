@@ -42,7 +42,6 @@ export default class Login extends Vue {
   @include tablet-portrait {
     flex-flow: row nowrap;
   }
-
   &__form {
     height: 50%;
   }

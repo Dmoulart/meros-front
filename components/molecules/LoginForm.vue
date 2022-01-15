@@ -10,13 +10,12 @@
     <m-form id="login" class="login__form" @submit="login">
       <template #fields>
         <m-input-group class="login__input">
-          <m-input v-model="form.email" icon="user" field="Email" :rules="rules.email" :display-error="true" />
+          <m-input icon="user" :field="fields.email" :rules="rules.email" :display-error="true" />
         </m-input-group>
 
         <m-input-group class="login__input">
           <m-input
-            v-model="form.password"
-            field="Mot de passe"
+            :field="fields.password"
             icon="password"
             :is-password="true"
             :rules="rules.min(6)"
@@ -43,7 +42,8 @@ import {
   Vue
 } from 'nuxt-property-decorator'
 import { ownerData } from '../../owner'
-import { rules } from '@/validation/rules'
+import { Submission } from '~/types/form'
+import { rules } from '~/validation/rules'
 @Component({})
 export default class Login extends Vue {
   @Prop({ type: String })
@@ -53,31 +53,33 @@ export default class Login extends Vue {
 
   rules = rules
 
-  form = {
-    email: '',
-    password: ''
-  }
-
   errors: string = ''
 
+  fields: Record<string, string> = {
+    email: 'Email',
+    password: 'Mot de passe'
+  }
+
   errorMessages: Record<string, string> = {
-    'Error: Request failed with status code 401': "Oups, identifiants non reconnus. Etes-vous sûr d'avoir saisis les bons ?"
+    'Error: Request failed with status code 401': "Oups, identifiants non reconnus. Etes-vous sûr d'avoir saisis les bons ?",
+    'Error: Request failed with status code 400': 'Oups, il y a eu un problème ! Veuillez réessayer plus tard.',
+    'Error: Request failed with status code 500': 'Oups, il y a eu un problème ! Veuillez réessayer plus tard.'
   }
 
   beforeMount () {
-    this.$auth.onError(() => {
+    this.$auth.onError((error, name, endpoint) => {
+      console.log(error, name, endpoint)
       this.errors = (this.$auth.error) as unknown as string
     })
   }
 
-  async login (submission: Record<string, unknown>): Promise<void> {
-    console.log('form is valid', submission)
-    if (!submission.isValid) { return }
-    const data = { username: this.form.email, password: this.form.password }
+  async login ({ isValid, data }: Submission): Promise<void> {
+    if (!isValid) { return }
+    const credentials = { username: data[this.fields.email], password: data[this.fields.password] }
     try {
-      await this.$auth.loginWith('local', { data })
-    } catch (err) {
-      this.errors = this.errorMessages[err as string]
+      await this.$auth.loginWith('local', credentials)
+    } catch (error) {
+      this.errors = this.errorMessages[error as string]
     }
   }
 }

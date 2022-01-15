@@ -69,11 +69,8 @@ export default class MInput extends Vue {
 
   validateInput (value:string = this.inputElement.value): string|null {
     if (!this.rules) { return null }
-
     this.error = validate(this.rules)(value).error ?? ''
-    console.log(this.error)
     this.error ? this.emitError() : this.clearError()
-
     return this.error
   }
 
