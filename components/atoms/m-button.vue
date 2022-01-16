@@ -39,7 +39,6 @@ $button-font-size: $font-size;
   border: none;
   box-shadow: 2px 0px 2px 2px rgba(96, 96, 96, 0.05) inset;
   font-weight: 500;
-  //font-variant-caps: all-small-caps;
   font-size: $button-font-size;
   cursor:pointer;
 }

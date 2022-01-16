@@ -32,6 +32,11 @@ import { Submission } from '../../types/form'
 export default class MForm extends Vue {
   name = 'm-form'
 
+  /**
+   * Register all children inputs.
+   * @todo: do it only once ?
+   * @returns {Array<MInput>} - The list of all children inputs
+   */
   get inputs (): Array<MInput> {
     const isInput = (component: Vue) => (component as any).name === 'm-input'
     const childrenInputs = (component: Vue): Array<MInput> => component.$children.filter(isInput) as Array<MInput>
@@ -43,16 +48,23 @@ export default class MForm extends Vue {
       }
       return fields
     }
-
     return allChildrenInputs(this)
   }
 
+  /**
+   * Returns the form data as key value pairs.
+   * @return {Record<string, any>} - The form fields and corresponding data
+   */
   get formData (): Record<string, any> {
     return this.inputs.reduce((prev, input) => {
       return { ...prev, [input.field]: input.value }
     }, {})
   }
 
+  /**
+   * Returns the form error as key value pairs or as null if none.
+   * @return {Record<string, string>|null} - The form fields and corresponding errors
+   */
   get errors (): Record<string, string>|null {
     const errors = this.inputs.reduce((prev, input) => {
       const error = input.validateInput()
@@ -61,13 +73,21 @@ export default class MForm extends Vue {
     return Object.keys(errors).length ? errors : null
   }
 
+  /**
+   * Emit the submit event with the form data.
+   * @return {Submission} - The form data
+   */
   @Emit('submit')
   submit (): Submission {
     return { errors: this.errors, data: this.formData, isValid: this.errors === null }
   }
 
+  /**
+   * Emit the error event.
+   * @return {void}
+   */
   @On('error')
-  onError (_: any) {
+  onError (_: any): void {
     // Do something on errors
   }
 }

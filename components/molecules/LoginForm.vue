@@ -38,36 +38,27 @@
 <script lang="ts">
 import {
   Component,
-  Prop,
-  Vue
+  mixins,
+  Prop
 } from 'nuxt-property-decorator'
-import { ownerData } from '../../owner'
+import { MVue } from '@/mixins/m-vue'
+import { MerosFormVue } from '@/mixins/meros-form'
 import { Submission } from '~/types/form'
-import { rules } from '~/validation/rules'
-@Component({})
-export default class Login extends Vue {
+@Component({
+  mixins: [MerosFormVue]
+})
+export default class Login extends mixins(MVue, MerosFormVue) {
   @Prop({ type: String })
     message !: string
 
-  owner = ownerData
-
-  rules = rules
-
-  errors: string = ''
-
-  errorMessages: Record<string, string> = {
-    'Error: Request failed with status code 401': "Oups, identifiants non reconnus. Etes-vous sûr d'avoir saisis les bons ?",
-    'Error: Request failed with status code 400': 'Oups, il y a eu un problème ! Veuillez réessayer plus tard.',
-    'Error: Request failed with status code 500': 'Oups, il y a eu un problème ! Veuillez réessayer plus tard.'
-  }
-
+  /**
+   * Login the user with the submitted credentials
+   * @param {Submission} submission
+   * @returns {Promise<void>}
+   */
   async login ({ errors, data }: Submission): Promise<void> {
     if (errors) { return }
     await this.$auth.loginWith('local', { data }).catch(this.setErrors)
-  }
-
-  setErrors (error: string): void {
-    this.errors = this.errorMessages[error]
   }
 }
 </script>

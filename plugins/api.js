@@ -1,4 +1,4 @@
-export default function ({ $axios, env, error: nuxtError }, inject) {
+export default function ({ $axios }, inject) {
   // Create a custom axios instance
   const api = $axios.create({
     headers: {
@@ -7,7 +7,7 @@ export default function ({ $axios, env, error: nuxtError }, inject) {
       }
     }
   })
-  
+
   // Inject to context as $api
   inject('api', api)
 }
