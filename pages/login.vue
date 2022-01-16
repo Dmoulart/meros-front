@@ -23,11 +23,11 @@
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator'
 import { MVue } from '~/mixins/m-vue'
-@Component({})
+@Component({
+  layout: 'empty'
+})
 export default class Login extends MVue {
   name = 'Login'
-  // Use no layout for this page
-  layout = null
 }
 </script>
 

@@ -10,13 +10,13 @@
     <m-form id="login" class="login__form" @submit="login">
       <template #fields>
         <m-input-group class="login__input">
-          <m-input icon="user" label="Email" field="username" :rules="rules.email" display-errors />
+          <m-input icon="users/user" label="Email" field="username" :rules="rules.email" display-errors />
         </m-input-group>
         <m-input-group class="login__input">
           <m-input
             label="Mot de passe"
             field="password"
-            icon="password"
+            icon="users/password"
             :is-password="true"
             :rules="rules.min(6)"
             display-errors

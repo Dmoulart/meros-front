@@ -1,19 +1,12 @@
 <template>
-  <div id="main">
-    WOLOLO
-    <Nuxt />
-  </div>
+  <Nuxt />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({})
-export default class Main extends Vue {
-  name = 'main'
-  mounted () {
-    console.log('mounted')
-  }
+export default class Empty extends Vue {
 }
 </script>
 

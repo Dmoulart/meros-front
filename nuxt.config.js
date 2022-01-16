@@ -57,7 +57,8 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/svg-sprite'
+    '@nuxtjs/svg-sprite',
+    '@nuxtjs/device'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
