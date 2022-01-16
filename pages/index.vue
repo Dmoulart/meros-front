@@ -1,12 +1,13 @@
 <template>
-  <div v-if="$auth.$state.user">
-    {{ $auth.$state.user.email }}
+  <div v-if="user">
+    {{ user.email }}
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Component } from 'nuxt-property-decorator'
+import { MVue } from '~/mixins/m-vue'
 @Component({})
-export default class Home extends Vue {
+export default class Home extends MVue {
 }
 </script>
