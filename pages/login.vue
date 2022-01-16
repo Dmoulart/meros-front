@@ -21,13 +21,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
-import { ownerData } from '@/owner'
-import { OwnerData } from '~/types/owner'
+import { Component } from 'nuxt-property-decorator'
+import { MVue } from '~/mixins/m-vue'
 @Component({})
-export default class Login extends Vue {
-  owner : OwnerData = ownerData
+export default class Login extends MVue {
   name = 'Login'
+  // Use no layout for this page
+  layout = null
 }
 </script>
 

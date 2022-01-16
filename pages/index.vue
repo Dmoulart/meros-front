@@ -9,5 +9,9 @@ import { Component } from 'nuxt-property-decorator'
 import { MVue } from '~/mixins/m-vue'
 @Component({})
 export default class Home extends MVue {
+  layout = 'main'
+  mounted () {
+    console.log(this.layout)
+  }
 }
 </script>

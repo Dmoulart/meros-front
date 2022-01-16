@@ -1,5 +1,6 @@
 <template>
-  <div style="width:100vw;height:100vh;display:flex;justify-content:center;align-items:center">
+  <div id="main">
+    WOLOLO
     <Nuxt />
   </div>
 </template>
@@ -8,8 +9,11 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component({})
-export default class Default extends Vue {
-  name = 'Default'
+export default class Main extends Vue {
+  name = 'main'
+  mounted () {
+    console.log('mounted')
+  }
 }
 </script>
 
