@@ -10,16 +10,16 @@
     <m-form id="login" class="login__form" @submit="login">
       <template #fields>
         <m-input-group class="login__input">
-          <m-input icon="user" :field="fields.email" :rules="rules.email" :display-error="true" />
+          <m-input icon="user" label="Email" field="username" :rules="rules.email" display-errors />
         </m-input-group>
-
         <m-input-group class="login__input">
           <m-input
-            :field="fields.password"
+            label="Mot de passe"
+            field="password"
             icon="password"
             :is-password="true"
             :rules="rules.min(6)"
-            :display-error="true"
+            display-errors
           />
         </m-input-group>
       </template>
@@ -55,11 +55,6 @@ export default class Login extends Vue {
 
   errors: string = ''
 
-  fields: Record<string, string> = {
-    email: 'Email',
-    password: 'Mot de passe'
-  }
-
   errorMessages: Record<string, string> = {
     'Error: Request failed with status code 401': "Oups, identifiants non reconnus. Etes-vous sûr d'avoir saisis les bons ?",
     'Error: Request failed with status code 400': 'Oups, il y a eu un problème ! Veuillez réessayer plus tard.',
@@ -68,9 +63,7 @@ export default class Login extends Vue {
 
   async login ({ errors, data }: Submission): Promise<void> {
     if (errors) { return }
-    const credentials = { username: data[this.fields.email], password: data[this.fields.password] }
-    // try {
-    await this.$auth.loginWith('local', { data: credentials }).catch(this.setErrors)
+    await this.$auth.loginWith('local', { data }).catch(this.setErrors)
   }
 
   setErrors (error: string): void {

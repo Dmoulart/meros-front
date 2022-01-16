@@ -16,7 +16,7 @@
         :class="icon ? 'input__label--icon' : ''"
         :for="`input-field-${field}`"
       >
-        {{ field }}</label>
+        {{ label }}</label>
     </div>
     <div v-show="error" class="input__error">
       {{ error }}
@@ -29,8 +29,11 @@ import { Component, Emit, Prop, Vue } from 'nuxt-property-decorator'
 import { validate } from '@/validation/rules'
 @Component({})
 export default class MInput extends Vue {
-  @Prop({ type: String, default: '' })
+  @Prop({ type: String, required: true })
     field!: string
+
+  @Prop({ type: String, default: '' })
+    label!: string
 
   @Prop({ type: Boolean, default: false })
     isPassword!: boolean
@@ -45,7 +48,7 @@ export default class MInput extends Vue {
     rules! : ((...args: any) => boolean|string) | null
 
   @Prop({ type: Boolean, default: false })
-    displayError! : boolean
+    displayErrors! : boolean
 
   name = 'm-input'
 
@@ -77,7 +80,7 @@ export default class MInput extends Vue {
   emitError (): string | boolean {
     this.$parent.$emit('error', {
       error: this.error,
-      displayError: this.displayError,
+      displayErrors: this.displayErrors,
       input: this
     })
     return this.error

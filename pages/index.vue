@@ -8,9 +8,5 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 @Component({})
 export default class Home extends Vue {
-  asyncData (context:any) {
-    console.log('router')
-    console.log(context)
-  }
 }
 </script>
