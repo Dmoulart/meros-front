@@ -1,21 +1,16 @@
 <template>
   <div class="app">
-    <m-navbar>
-      <m-navbutton icon="nav/home" />
-      <m-navbutton icon="nav/booking" />
-      <m-navbutton icon="nav/activity" />
-      <m-navbutton icon="nav/vehicle" />
-      <m-navbutton icon="nav/expanse" />
-    </m-navbar>
+    <NavBar />
     <Nuxt />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import { Component } from 'nuxt-property-decorator'
+import { MVue } from '~/mixins/m-vue'
 
 @Component({})
-export default class Default extends Vue {
+export default class Default extends MVue {
 }
 </script>
 

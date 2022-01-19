@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" @mouseover="mouseEnter" @mouseleave="mouseLeave">
     <header class="navbar__header">
       <svg-icon
         v-if="!$device.isMobile"
@@ -8,7 +8,7 @@
       />
     </header>
     <div class="navbar__items">
-      <slot @hover="slide" />
+      <slot />
     </div>
     <footer class="navbar__footer" />
   </nav>
@@ -17,19 +17,21 @@
 <script lang="ts">
 
 import {
-  Component
+  Component, Emit
 } from 'nuxt-property-decorator'
 import { MVue } from '~/mixins/m-vue'
 @Component({})
 export default class MNavbar extends MVue {
   name = 'm-navbar'
 
-  /**
-   * Slide the menu
-   * @returns void
-   */
-  slide (): void {
-    console.log('slide')
+  @Emit('hover')
+  mouseEnter (): boolean {
+    return true
+  }
+
+  @Emit('hover')
+  mouseLeave (): boolean {
+    return false
   }
 }
 
@@ -53,7 +55,7 @@ $nav-shadow: $component-shadow;
     position:static;
     flex-direction: column;
     justify-content: flex-start;
-    width: 80px;
+    width: 60px;
     height: auto;
   }
 
@@ -65,19 +67,21 @@ $nav-shadow: $component-shadow;
       justify-content: center;
       width: 70%;
       height:10%;
+      margin-bottom: 24px;
     }
     &__footer{
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height:10%;
+      height:30%;
     }
     &__logo{
       width: auto;
       height: 100%;
     }
   }
+
   &__items{
     display: flex;
     flex-direction: row;

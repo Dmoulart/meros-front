@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-button" @mouseenter="mouseEnter" @mouseleave="mouseLeave">
+  <div class="nav-button" @mouseenter="mouseEnter">
     <!--Todo: use svg-icon component -->
     <img class="nav-button__icon" :src="`svg/${icon}.svg`">
     <slot />
@@ -21,25 +21,20 @@ export default class MNavbutton extends Vue {
 
   @Prop({ type: String, required: true }) icon!:string
 
-  hover: boolean = false
-
   /**
    * Emit hover event
    */
   @Emit('hover')
   mouseEnter () {
-    this.hover = true
-  }
-
-  mouseLeave () {
-    this.hover = false
+    return true
   }
 }
 </script>
 
 <style lang="scss">
-$nav-btn-dimensions: 32px;
+$nav-btn-dimensions: 24px;
 .nav-button{
+  padding:8px;
   cursor: pointer;
   &__icon{
     height: $nav-btn-dimensions;

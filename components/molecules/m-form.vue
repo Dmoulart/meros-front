@@ -40,6 +40,7 @@ export default class MForm extends Vue {
   get inputs (): Array<MInput> {
     const isInput = (component: Vue) => (component as any).name === 'm-input'
     const childrenInputs = (component: Vue): Array<MInput> => component.$children.filter(isInput) as Array<MInput>
+
     const allChildrenInputs = (component: Vue): Array<MInput> => {
       const fields = []
       fields.push(...childrenInputs(component))
@@ -48,6 +49,7 @@ export default class MForm extends Vue {
       }
       return fields
     }
+
     return allChildrenInputs(this)
   }
 
