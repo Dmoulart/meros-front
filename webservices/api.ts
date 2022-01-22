@@ -5,6 +5,7 @@ import { NuxtHTTPInstance } from '@nuxt/http'
 // import { NormalizedOptions, BeforeRequestHook } from 'ky'
 import { Context } from '@nuxt/types'
 import { TokenableScheme } from '@nuxtjs/auth-next'
+import { BookingData } from '~/bo/booking'
 import { MContext } from '~/types/context'
 export class Api {
     public client!: NuxtHTTPInstance
@@ -31,7 +32,7 @@ export class Api {
      * @param {Number} page
      * @returns {Object} bookings
      */
-    public async getBookings(page: number = 1): Promise<JSON> {
+    public async getBookings(page: number = 1): Promise<Array<BookingData>> {
         // this.client.setToken(this.token, 'Bearer')
 
         return await this.client.$get(`/bookings?page=${page}`)
@@ -42,7 +43,7 @@ export class Api {
      * @param {Number} id
      * @returns {Object} bookings
      */
-    public async getBooking(id: number): Promise<JSON> {
+    public async getBooking(id: number): Promise<BookingData> {
         // this.client.setToken(this.token, 'Bearer')
         return await this.client.$get(`/bookings/${id}`)
     }

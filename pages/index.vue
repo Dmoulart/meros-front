@@ -13,16 +13,18 @@
 import { Component } from 'nuxt-property-decorator'
 import { MContext } from '~/types/context'
 import { MVue } from '~/mixins/m-vue'
+import { Booking } from '~/bo/booking'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
-  bookings!: Object
+  bookings!: Array<Booking>
 
   /**
    * Method called before loading the vue instance
    */
   async asyncData ({ $api } : MContext) {
-    const bookings = await $api.getBookings()
+    const bookingsData = await $api.getBookings()
+    const bookings = bookingsData.map(booking => new Booking(booking))
     return {
       bookings
     }
@@ -30,9 +32,6 @@ export default class Home extends MVue {
 
   mounted () {
     console.log(this.bookings)
-    // const bookings = {}
-
-    // console.log(bookings.data)
   }
 }
 </script>
