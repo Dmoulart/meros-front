@@ -40,9 +40,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/context',
-    '@/plugins/api',
     '@/plugins/axios',
-    '@/plugins/custom-http-client'
+    '@/plugins/custom-http-client',
+    '@/plugins/api'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

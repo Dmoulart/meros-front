@@ -13,7 +13,6 @@
 import { Component } from 'nuxt-property-decorator'
 import { MContext } from '~/types/context'
 import { MVue } from '~/mixins/m-vue'
-import { Api } from '~/webservices/api'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
@@ -22,10 +21,8 @@ export default class Home extends MVue {
   /**
    * Method called before loading the vue instance
    */
-  async asyncData (context : MContext) {
-    const api = new Api(context)
-    const bookings = await api.getBookings()
-    console.log(bookings)
+  async asyncData ({ $api } : MContext) {
+    const bookings = await $api.getBookings()
     return {
       bookings
     }

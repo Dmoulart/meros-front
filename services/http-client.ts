@@ -10,6 +10,7 @@ type RequestOptions = {
 }
 
 export interface MHttpClient {
+    headers: { [key: string]: string }
     create(options?: RequestOptions): MHttpClient
     get: (endpoint: string) => Promise<any>;
     post: (endpoint: string, body?: string) => Promise<any>;
@@ -34,20 +35,24 @@ export class HttpClient implements MHttpClient {
     }
 
     async get(endpoint: string): Promise<JSON> {
-        const response = await fetch(`${this.baseUrl}${endpoint}`, { method: 'GET', headers: this.headers })
-        const data = await response.text()
-        const formattedData = JSON.parse(data)
-        return formattedData
+        return await this.request(endpoint, { method: 'GET', headers: this.headers })
     }
 
     async post(endpoint: string, body?: string): Promise<JSON> {
-        const response = await fetch(`${this.baseUrl}${endpoint}`, { method: 'POST', headers: this.headers, body })
-        const data = await response.text()
-        const formattedData = JSON.parse(data)
-        return formattedData
+        return await this.request(endpoint, { method: 'POST', headers: this.headers, body })
     }
 
     create(options?: RequestOptions): MHttpClient {
         return new HttpClient(options)
+    }
+
+    private async request(endpoint: string, options: RequestInit): Promise<any> {
+        try {
+            const response = await fetch(`${this.baseUrl}${endpoint}`, options)
+            const data = await response.text()
+            return JSON.parse(data)
+        } catch (error: any) {
+            console.error(error)
+        }
     }
 }
