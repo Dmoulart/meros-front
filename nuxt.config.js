@@ -19,7 +19,6 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/global.scss'
-    // 'element-ui/lib/theme-chalk/index.css'
   ],
   styleResources: {
     scss: [
@@ -40,8 +39,6 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/context',
-    '@/plugins/axios',
-    '@/plugins/custom-http-client',
     '@/plugins/api'
   ],
 
@@ -66,9 +63,10 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxt/http',
+    '@nuxtjs/axios'
   ],
   auth: {
     strategies: {
@@ -91,10 +89,12 @@ export default {
       }
     }
   },
+  http: {
+    baseURL: 'http://localhost:8000'
+  },
   axios: {
     baseURL: 'http://localhost:8000'
   },
-
   router: {
     middleware: ['auth']
   },

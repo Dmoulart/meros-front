@@ -12,6 +12,7 @@
     "go-dev": "yarn build && yarn dev"
   },
   "dependencies": {
+    "@nuxt/http": "^0.6.4",
     "@nuxtjs/auth-next": "5.0.0-1624817847.21691f1",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/style-resources": "^1.2.1",

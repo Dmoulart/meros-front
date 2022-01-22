@@ -29,6 +29,7 @@ export default class Home extends MVue {
   }
 
   mounted () {
+    console.log(this.bookings)
     // const bookings = {}
 
     // console.log(bookings.data)
