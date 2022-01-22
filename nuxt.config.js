@@ -39,7 +39,10 @@ export default {
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/context'
+    '@/plugins/context',
+    '@/plugins/api',
+    '@/plugins/axios',
+    '@/plugins/custom-http-client'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -88,6 +91,10 @@ export default {
       }
     }
   },
+  axios: {
+    baseURL: 'http://localhost:8000'
+  },
+
   router: {
     middleware: ['auth']
   },
