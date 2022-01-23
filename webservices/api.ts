@@ -1,17 +1,13 @@
-/* eslint-disable space-before-function-paren */
-/* eslint-disable indent */
-/* eslint-disable import/named */
 import { NuxtHTTPInstance } from '@nuxt/http'
-// import { NormalizedOptions, BeforeRequestHook } from 'ky'
 import { Context } from '@nuxt/types'
 import { TokenableScheme } from '@nuxtjs/auth-next'
 import { BookingData } from '~/bo/booking'
-import { MContext } from '~/types/context'
+
 export class Api {
     public client!: NuxtHTTPInstance
-    private context: MContext | Context
+    private context: Context
 
-    constructor(context: MContext) {
+    constructor(context: Context) {
         this.context = context
         this.client = context.$http
         this.client.onRequest((config) => {
@@ -33,8 +29,6 @@ export class Api {
      * @returns {Object} bookings
      */
     public async getBookings(page: number = 1): Promise<Array<BookingData>> {
-        // this.client.setToken(this.token, 'Bearer')
-
         return await this.client.$get(`/bookings?page=${page}`)
     }
 
@@ -44,14 +38,6 @@ export class Api {
      * @returns {Object} bookings
      */
     public async getBooking(id: number): Promise<BookingData> {
-        // this.client.setToken(this.token, 'Bearer')
         return await this.client.$get(`/bookings/${id}`)
     }
-
-    // private verifyToken([request, options]: Parameters<BeforeRequestHook>): void {
-    //     if (this.token && options?.headers) {
-    //         options.headers.set('Authorization', `Bearer ${this.token}`)
-    //     }
-    //     return config
-    // }
 }

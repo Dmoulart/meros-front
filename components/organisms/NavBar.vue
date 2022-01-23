@@ -85,7 +85,6 @@ export default class NavBar extends MVue {
 <style lang="scss" scoped>
 $developedSideBarWidth: 200px;
 $slideTime : 0.3s;
-$nav-item-text-delay: $slideTime/2;
 $nav-item-text-margin: 24px;
 
 .main-navbar{

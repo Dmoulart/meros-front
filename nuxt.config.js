@@ -39,7 +39,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/context',
-    '@/plugins/api'
+    '@/plugins/api',
+    '@/plugins/bookings',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
