@@ -14,22 +14,21 @@ import { Component } from 'nuxt-property-decorator'
 import { MVue } from '~/mixins/m-vue'
 import { Booking } from '~/bo/booking'
 import { Context } from '@nuxt/types'
+import { List } from 'immutable'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
-  bookings!: Array<Booking>
+  bookings!: List<Booking>
 
   /**
    * Method called before loading the vue instance
    */
   async asyncData ({ $bookings } : Context) {
     const bookings = await $bookings.get()
+    console.log(bookings.toJSON())
     return {
       bookings
     }
-  }
-
-  mounted () {
   }
 }
 </script>

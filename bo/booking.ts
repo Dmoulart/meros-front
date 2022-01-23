@@ -2,16 +2,16 @@ import { User, UserData } from "./user"
 import { Vehicle } from "./vehicle"
 
 export type BookingData = {
-    id: number
-    informations: string
-    isCompleted: boolean
-    isOpen: boolean
-    startDate: Date
-    endDate: Date
-    startMileage: number | null
-    endMileage: number | null
-    vehicle: Vehicle
-    users: Array<User>
+    id?: number
+    informations?: string
+    isCompleted?: boolean
+    isOpen?: boolean
+    startDate?: Date
+    endDate?: Date
+    startMileage?: number | null
+    endMileage?: number | null
+    vehicle?: Vehicle
+    users?: Array<User>
 }
 
 export class Booking {
@@ -37,19 +37,21 @@ export class Booking {
             startMileage,
             endMileage,
             vehicle,
-            users 
+            users
         } = data
-        this.id = id
-        this.informations = informations
-        this.isCompleted = isCompleted
-        this.isOpen = isOpen
-        this.startDate = startDate
-        this.endDate = endDate
-        this.startMileage = startMileage
-        this.endMileage = endMileage
-        this.vehicle = vehicle
-        this.users = users
 
+        id && (this.id = id)
+        informations && (this.informations = informations)
+        startDate && (this.startDate = startDate)
+        endDate && (this.endDate = endDate)
+        startMileage && (this.startMileage = startMileage)
+        endMileage && (this.endMileage = endMileage)
+        vehicle && (this.vehicle = vehicle)
+        users && (this.users = users)
+
+        // Todo: find a better (simpler ?) way to init data... 
+        this.isCompleted = isCompleted ?? false
+        this.isOpen = isOpen ?? false
     }
 
     public get id(): number {

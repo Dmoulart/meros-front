@@ -1,7 +1,12 @@
 import { Context } from '@nuxt/types';
 import { Booking } from '~/bo/booking';
+import { deleteNestedProps } from '~/utils/object-utils';
 import { Api } from '~/webservices/api'
+import { List } from 'immutable'
 
+/**
+ * The class responsible for getting the booking data from the API and transform it into a Booking object.
+ */
 export class BookingService {
     private api: Api
 
@@ -14,10 +19,10 @@ export class BookingService {
      * @param {Number} page 
      * @returns {Promise<Array<Booking>>}
      */
-    public async get(page: number = 1): Promise<Array<Booking>> {
-        const bookings = await this.api.getBookings(page)
-        const bookingList = bookings.map(bookingData => new Booking(bookingData))
-        return bookingList
+    public async get(page: number = 1): Promise<List<Booking>> {
+        const bookingsData = await this.api.getBookings(page)
+        const bookings = bookingsData.map(bookingData => new Booking(bookingData))
+        return List(bookings)
     }
 
     /**
