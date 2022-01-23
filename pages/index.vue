@@ -1,7 +1,10 @@
 <template>
   <main class="home">
     <m-panel class="home__reservations">
-      //
+      <h3>Mes réservations</h3>
+      
+        <ReservationView v-for="booking in userBookings" :booking="booking" :key="booking.id"/>
+        
     </m-panel>
     <m-panel />
     <m-panel />
@@ -15,20 +18,23 @@ import { MVue } from '~/mixins/m-vue'
 import { Booking } from '~/bo/booking'
 import { Context } from '@nuxt/types'
 import { List } from 'immutable'
+import { dayJS } from '~/utils/time-utils'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
-  bookings!: List<Booking>
+  userBookings: List<Booking> = List()
 
-  /**
-   * Method called before loading the vue instance
-   */
-  async asyncData ({ $bookings } : Context) {
-    const bookings = await $bookings.get()
-    console.log(bookings.toJSON())
+  async asyncData ({ $bookings, $auth } : Context) {
+    //const userBookings = await $bookings.getForUser($auth.$state.user)
+    const userBookings = List($auth.$state.user.bookings)//.slice(0, 3)
+
     return {
-      bookings
+      userBookings
     }
+  }
+
+  mounted(){
+    console.log(dayJS)
   }
 }
 </script>

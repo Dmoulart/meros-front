@@ -2,6 +2,7 @@ import { NuxtHTTPInstance } from '@nuxt/http'
 import { Context } from '@nuxt/types'
 import { TokenableScheme } from '@nuxtjs/auth-next'
 import { BookingData } from '~/bo/booking'
+import { User } from '~/bo/user'
 
 export class Api {
     public client!: NuxtHTTPInstance
@@ -21,6 +22,15 @@ export class Api {
      */
     get token(): string | false {
         return (this.context?.$auth.strategy as TokenableScheme).token.get() as string | false
+    }
+
+    /**
+     * Get user bookings.
+     * @param {Object} user
+     * @returns {Object} bookings
+     */
+    public async getUserBookings(user: User): Promise<Array<BookingData>> {
+        return await this.client.$get(`/users/${user.id}/bookings`)
     }
 
     /**

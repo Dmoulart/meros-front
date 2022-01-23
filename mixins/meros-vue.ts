@@ -4,7 +4,8 @@ import {
 } from 'nuxt-property-decorator'
 import { ownerData } from '~/owner'
 import { OwnerData } from '~/types/owner'
-import { User } from '~/types/user'
+import * as Auth from '~/types/user'
+import { User } from '~/bo/user'
 
 /**
  * Global mixin
@@ -18,7 +19,7 @@ export class MerosVue extends Vue {
    * Get the current user
    * @return {User} - The current user
    */
-  get user (): User {
+  get user(): User {
     return this.$auth.$state.user
   }
 }

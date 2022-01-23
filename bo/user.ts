@@ -2,15 +2,15 @@ import { Booking } from "./booking"
 
 export type Roles = "ROLE_USER" | "ROLE_ADMIN"
 export type UserData = {
-    id: number
-    names: string
-    pseudo: string
-    email: string
-    share: number
-    currentMileage: number
-    estimatedMileage: number
-    roles: Array<Roles>
-    bookings: Array<Booking>
+    id?: number
+    names?: string
+    pseudo?: string
+    email?: string
+    share?: number
+    currentMileage?: number
+    estimatedMileage?: number
+    roles?: Array<Roles>
+    bookings?: Array<Booking>
 }
 
 export class User {
@@ -27,15 +27,15 @@ export class User {
 
     public constructor(data: UserData) {
         const { id, names, pseudo, email, share, currentMileage, estimatedMileage, roles, bookings } = data
-        this.id = id
-        this.names = names
-        this.pseudo = pseudo
-        this.email = email
-        this.share = share
-        this.currentMileage = currentMileage
-        this.estimatedMileage = estimatedMileage
-        this.roles = roles
-        this.bookings = bookings
+        id && (this.id = id)
+        names && (this.names = names)
+        pseudo && (this.pseudo = pseudo)
+        email && (this.email = email)
+        share && (this.share = share)
+        currentMileage && (this.currentMileage = currentMileage)
+        estimatedMileage && (this.estimatedMileage = estimatedMileage)
+        roles && (this.roles = roles)
+        bookings && (this.bookings = bookings)
     }
 
     public get id(): number {
