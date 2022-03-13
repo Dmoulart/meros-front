@@ -12,7 +12,7 @@ import { User } from '~/bo/user'
  */
 @Component({})
 export class MerosVue extends Vue {
-  // All the owner data as JSON file
+  // All the site owner data as JSON file
   owner: OwnerData = ownerData
 
   /**
@@ -20,6 +20,6 @@ export class MerosVue extends Vue {
    * @return {User} - The current user
    */
   get user(): User {
-    return this.$auth.$state.user
+    return this.$auth.user as unknown as User
   }
 }

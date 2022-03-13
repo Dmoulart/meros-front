@@ -39,26 +39,34 @@
 import {
   Component,
   mixins,
-  Prop
+  Prop, 
 } from 'nuxt-property-decorator'
 import { MVue } from '@/mixins/m-vue'
 import { MerosFormVue } from '@/mixins/meros-form'
 import { Submission } from '~/types/form'
+import { User } from '~/bo/user'
 @Component({
   mixins: [MerosFormVue]
 })
 export default class Login extends mixins(MVue, MerosFormVue) {
+  /**
+   * The message in the header of the forms
+   */
   @Prop({ type: String })
     message !: string
 
   /**
    * Login the user with the submitted credentials
+   * 
    * @param {Submission} submission
    * @returns {Promise<void>}
    */
   async login ({ errors, data }: Submission): Promise<void> {
     if (errors) { return }
-    await this.$auth.loginWith('local', { data }).catch(this.setErrors)
+
+    await this.$auth
+    .loginWith('local', { data })
+    .catch(this.setErrors)
   }
 }
 </script>

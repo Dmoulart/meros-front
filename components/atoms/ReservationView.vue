@@ -4,7 +4,7 @@
         {{startDateMessage}}
       </div>
       <div>
-        {{booking.vehicle.name}}
+         - {{booking.vehicle.name}}
       </div>
   </div>
 </template>

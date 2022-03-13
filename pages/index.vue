@@ -2,9 +2,7 @@
   <main class="home">
     <m-panel class="home__reservations">
       <h3>Mes réservations</h3>
-      
         <ReservationView v-for="booking in userBookings" :booking="booking" :key="booking.id"/>
-        
     </m-panel>
     <m-panel />
     <m-panel />
@@ -26,7 +24,7 @@ export default class Home extends MVue {
 
   async asyncData ({ $bookings, $auth } : Context) {
     //const userBookings = await $bookings.getForUser($auth.$state.user)
-    const userBookings = List($auth.$state.user.bookings)//.slice(0, 3)
+    const userBookings = List($auth.$state.user.bookings).slice(0, 3)
 
     return {
       userBookings
@@ -41,8 +39,8 @@ export default class Home extends MVue {
 <style lang="scss">
 .home {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: auto;
+  grid-template-columns: 1fr 2fr;
+  grid-auto-rows: 1fr;
   grid-gap: 12px;
   padding: 24px;
   z-index: -3;
