@@ -3,14 +3,28 @@ import { Booking, BookingData } from '~/bo/booking';
 import { Api } from '~/webservices/api'
 import { List } from 'immutable'
 import { User } from '~/bo/user';
+import { ApiBookings } from '~/webservices/api/api-booking';
+import { ApiUser } from '~/webservices/api/api-user';
 /**
  * The class responsible for getting the booking data from the API and transform it into a Booking object.
  */
 export class BookingService {
     private api: Api
 
-    public constructor(private context: Context) {
-        this.api = context.$api;
+    /**
+     * The booking repository
+     */
+    private repository: ApiBookings
+
+    /**
+     * The user repository
+     */
+    private userRepository: ApiUser
+
+    public constructor({ $api, $repositories }: Context) {
+        this.api = $api;
+        this.repository = $repositories.bookings;
+        this.userRepository = $repositories.users;
     }
 
     /**
@@ -19,7 +33,7 @@ export class BookingService {
      * @returns {Promise<Array<Booking>>}
      */
     public async getForUser(user: User): Promise<List<Booking>> {
-        const bookingsData = await this.api.getUserBookings(user)
+        const bookingsData = await this.userRepository.getUserBookings(user)
         return this.toInstances(bookingsData)
     }
 
@@ -29,7 +43,7 @@ export class BookingService {
      * @returns {Promise<Array<Booking>>}
      */
     public async get(page: number = 1): Promise<List<Booking>> {
-        const bookingsData = await this.api.getBookings(page)
+        const bookingsData = await this.repository.getBookings(page)
         return this.toInstances(bookingsData)
     }
 
@@ -39,7 +53,7 @@ export class BookingService {
      * @returns {Promise<Booking>}
      */
     public async find(id: number = 1): Promise<Booking> {
-        const bookingData = await this.api.getBooking(id)
+        const bookingData = await this.repository.getBooking(id) as BookingData
         return this.toInstance(bookingData)
     }
 

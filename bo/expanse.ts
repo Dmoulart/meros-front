@@ -1,3 +1,4 @@
+import { MerosObject } from "./meros-object"
 import { User } from "./user"
 import { Vehicle } from "./vehicle"
 
@@ -10,7 +11,7 @@ export type ExpanseData = {
     vehicle: Vehicle
 }
 
-export class Expanse {
+export class Expanse implements MerosObject {
     private _id!: number
     private _details!: string
     private _documents!: Array<any>

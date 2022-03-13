@@ -1,4 +1,5 @@
 import { Booking } from "./booking"
+import { MerosObject } from "./meros-object"
 
 export type Roles = "ROLE_USER" | "ROLE_ADMIN"
 export type UserData = {
@@ -13,7 +14,7 @@ export type UserData = {
     bookings?: Array<Booking>
 }
 
-export class User {
+export class User implements MerosObject {
     private _id!: number
     private _names!: string
     private _pseudo!: string

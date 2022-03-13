@@ -1,3 +1,4 @@
+import { MerosObject } from "./meros-object"
 import { User, UserData } from "./user"
 import { Vehicle } from "./vehicle"
 
@@ -14,7 +15,7 @@ export type BookingData = {
     users?: Array<User>
 }
 
-export class Booking {
+export class Booking implements MerosObject {
     private _id!: number
     private _informations!: string
     private _isCompleted!: boolean

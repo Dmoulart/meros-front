@@ -1,4 +1,5 @@
 import { Expanse } from "./expanse"
+import { MerosObject } from "./meros-object"
 
 export type VehicleData = {
     id: number
@@ -15,7 +16,7 @@ export type VehicleData = {
     expanses: Array<Expanse>
 }
 
-export class Vehicle {
+export class Vehicle implements MerosObject {
     private _id!: number
     private _name!: string
     private _model!: string

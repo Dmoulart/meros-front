@@ -24,10 +24,12 @@ export default class Home extends MVue {
   layout = 'Main'
   userBookings: List<Booking> = List()
 
-  async asyncData ({ $bookings, $auth } : Context) {
+  async asyncData ({ $bookings, $auth, $repositories } : Context) {
     const user = ($auth.user as unknown as User)
     const userBookings = List(user.bookings).slice(0, 3)
 
+    const cars = await $repositories.vehicles.getVehicles(1)
+    console.log('vehicles', cars)
     return {
       userBookings
     }
