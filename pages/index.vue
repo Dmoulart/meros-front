@@ -20,7 +20,8 @@ import { Context } from '@nuxt/types'
 import { List } from 'immutable'
 import { User } from '~/bo/user'
 import { Vehicle } from '~/bo/vehicle'
-
+import { vehiclesStore } from '~/utils/store/store-accessor'
+import { Service } from '~/services/service'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
@@ -31,20 +32,26 @@ export default class Home extends MVue {
     const userBookings = List(user.bookings).slice(0, 3)
     const vehicles = $service(Vehicle)
     const list = await vehicles.get()
-    console.log(list)
-   // const firstVehicles = await vehicles.get()
- 
-    //const repo = Repos
-    //const cars = await Repository
-    //console.log('vehicles', cars)
+    list.forEach(v => console.log(v.name))
+    vehiclesStore.setList(list)
+    console.log(vehiclesStore.list)
+    //console.log(vehiclesStore)
     return {
       userBookings
     }
   }
 
-  mounted(){
-    const vehicles = this.$repository(Vehicle)
-    console.log(vehicles)
+  async mounted(){
+    const vehicles = await Service.of(Vehicle).get(1)
+    vehiclesStore.setList(vehicles)
+    this.$store.commit('todos/add', 'aadd')
+
+    console.log(this.$store.state.todos.list)
+    // console.log(vehicles)
+    // console.log(this.$store.commit('vehicles/setList', vehicles))
+    // console.log(vehiclesStore.list)
+    // console.log(this.$store)
+    // console.log(vehiclesStore)
   }
 
 }

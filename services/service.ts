@@ -4,7 +4,7 @@ import { createRepository } from "~/repositories/create-repository";
 import { Repository } from "~/repositories/repository";
 import { MerosCtor, MerosObjectCtor } from "~/types/utils";
 import { CreateServiceFn } from "./create-service";
-
+import { List } from 'immutable'
 /**
  * Services handle business logic. They fetch data from repository, format it, make verifications and send it to the view.
  */
@@ -35,7 +35,8 @@ export abstract class Service<T extends MerosObject>{
      * @returns entity
      */
     public async find(id: number): Promise<T> {
-        return await this.repository.find(id)
+        const data = await this.repository.find(id)
+        return new this.Entity(data)
     }
 
     /**
@@ -43,8 +44,10 @@ export abstract class Service<T extends MerosObject>{
      * @param page 
      * @returns entities
      */
-    public async get(page = 1): Promise<T[]> {
-        return await this.repository.get(page)
+    public async get(page = 1): Promise<List<T>> {
+        const data = await this.repository.get(page)
+        const entities = data.map(data => new this.Entity(data))
+        return List(entities)
     }
 
     /**
