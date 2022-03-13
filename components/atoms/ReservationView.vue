@@ -1,11 +1,11 @@
 <template>
   <div class="reservation-view">
-      <div>
+      <span class="reservation-view__vehicle">
+        {{booking.vehicle.name}}
+      </span>
+      <span class="reservation-view__date">
         {{startDateMessage}}
-      </div>
-      <div>
-         - {{booking.vehicle.name}}
-      </div>
+      </span>
   </div>
 </template>
 
@@ -52,6 +52,11 @@ export default class ReservationView extends Vue {
   height: 60px;
   justify-content: space-evenly;
   margin: 16px 0;
+
+  &__vehicle{
+    font-weight: bold;
+    font-variant-caps: all-petite-caps;
+  }
 }
 
 </style>

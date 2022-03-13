@@ -1,12 +1,12 @@
 <template>
   <main class="home">
+    <m-panel class="home__white-board"/>
+    <m-panel class="home__car"/>
     <m-panel class="home__reservations">
       <h3>Mes réservations</h3>
         <ReservationView v-for="booking in userBookings" :booking="booking" :key="booking.id"/>
     </m-panel>
-    <m-panel />
-    <m-panel />
-    <m-panel />
+    <m-panel class="home__kilometers"/>
   </main>
 </template>
 
@@ -16,36 +16,59 @@ import { MVue } from '~/mixins/m-vue'
 import { Booking } from '~/bo/booking'
 import { Context } from '@nuxt/types'
 import { List } from 'immutable'
-import { dayJS } from '~/utils/time-utils'
+import { User } from '~/bo/user'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
   userBookings: List<Booking> = List()
 
   async asyncData ({ $bookings, $auth } : Context) {
-    //const userBookings = await $bookings.getForUser($auth.$state.user)
-    const userBookings = List($auth.$state.user.bookings).slice(0, 3)
+    const user = ($auth.user as unknown as User)
+    const userBookings = List(user.bookings).slice(0, 3)
 
     return {
       userBookings
     }
   }
 
-  mounted(){
-    console.log(dayJS)
-  }
 }
 </script>
 <style lang="scss">
 .home {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-auto-rows: 1fr;
-  grid-gap: 12px;
-  padding: 24px;
-  z-index: -3;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+  .panel {
+    width: 90%;
+  }
+
   @include tablet-portrait {
-    margin-left: 200px; // Sidebar size
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 48px;
+    padding: 24px;
+    z-index: -3;
+    width: 100%;
+    margin-left: 140px; // Sidebar size
+
+    &__white-board{
+      grid-area: 1 / 1 / 3 / 6;
+    }
+
+    &__car{
+      grid-area: 3 / 1 / 6 / 3;
+    }
+
+    &__reservations{
+      grid-area: 3 / 3 / 6 / 5;
+    }
+
+    &__kilometers{
+      grid-area: 3 / 5 / 6 / 6;
+    }
   }
 
 }
