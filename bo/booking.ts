@@ -16,6 +16,8 @@ import { Vehicle } from "./vehicle"
 // }
 
 export class Booking implements MerosObject {
+    public static readonly NAME = "Booking"
+    
     private _id!: number
     private _informations!: string
     private _isCompleted!: boolean

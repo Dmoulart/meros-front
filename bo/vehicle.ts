@@ -1,22 +1,9 @@
 import { Expanse } from "./expanse"
 import { Data, MerosObject } from "./meros-object"
 
-// export type VehicleData = {
-//     id: number
-//     name: string
-//     model: string
-//     brand: string
-//     color: string
-//     fuelType: string
-//     seats: number
-//     mileage: number
-//     city: string
-//     street: string
-//     streetNumber: string
-//     expanses: Array<Expanse>
-// }
-
 export class Vehicle implements MerosObject {
+    public static readonly NAME = "Vehicle"
+
     private _id!: number
     private _name!: string
     private _model!: string

@@ -1,5 +1,5 @@
 import { Context } from '@nuxt/types'
-//import { BookingService } from '~/plugins/bookings'
+import { createRepository } from '~/repositories/create-repository'
 import { Api } from '~/webservices/api'
 
 
@@ -9,20 +9,17 @@ import { Api } from '~/webservices/api'
 declare module '@nuxt/types' {
     interface Context {
         $api: Api
-        //$bookings: BookingService
-        // $repositories: Repositories
+        $repository: ReturnType<typeof createRepository>
     }
     interface NuxtAppOptions {
         $api: Api
-        //$bookings: BookingService
-        // $repositories: Repositories
+        $repository: ReturnType<typeof createRepository>
     }
 
 }
 declare module 'vue/types/vue' {
     interface Vue {
         $api: Api
-        //$bookings: BookingService
-        // $repositories: Repositories
+        $repository: ReturnType<typeof createRepository>
     }
 }

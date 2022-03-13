@@ -12,6 +12,8 @@ import { Vehicle } from "./vehicle"
 // }
 
 export class Expanse implements MerosObject {
+    public static readonly NAME = "Expanse"
+
     private _id!: number
     private _details!: string
     private _documents!: Array<any>

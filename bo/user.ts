@@ -2,19 +2,10 @@ import { Booking } from "./booking"
 import { Data, MerosObject } from "./meros-object"
 
 export type Roles = "ROLE_USER" | "ROLE_ADMIN"
-// export type UserData = {
-//     id?: number
-//     names?: string
-//     pseudo?: string
-//     email?: string
-//     share?: number
-//     currentMileage?: number
-//     estimatedMileage?: number
-//     roles?: Array<Roles>
-//     bookings?: Array<Booking>
-// }
 
 export class User implements MerosObject {
+    public static readonly NAME = "User"
+
     private _id!: number
     private _names!: string
     private _pseudo!: string

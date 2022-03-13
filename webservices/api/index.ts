@@ -3,6 +3,4 @@ import { AbstractApi } from "./abstract-api";
 /**
  * A general Api without predefined endpoint.
  */
-export class Api extends AbstractApi {
-    protected endpoint = ''
-}
+export class Api extends AbstractApi { }

@@ -14,6 +14,7 @@ export type Ctor<T> = { new(...args: any[]): T };
 export type MerosCtor = { new(...args: any[]): MerosObject };
 
 /**
- * A particular meros object constructor type signature
+ * A particular meros object constructor type signature.
+ *  We add the static NAME property this way for now
  */
-export type MerosObjectCtor<T extends MerosObject> = { new(data: Data<T>): T };
+export type MerosObjectCtor<T extends MerosObject> = { new(data: Data<T>): T } & { NAME: string };

@@ -20,6 +20,8 @@ export default function (context: Context, inject: Function) {
   // Partially apply the context to the repository factory.
   // Now we've got a factory function that can create repository instances without specifying context each time.
   const repository = createRepository(context)
-
+  // Affect the repository of function, to have a cool api
+  Repository.of = repository;
+  // Inject the repository function into the context
   inject('repository', repository)
 }

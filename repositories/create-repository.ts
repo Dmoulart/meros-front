@@ -8,16 +8,20 @@ import { UserRepository } from "./user-repository";
 import { VehicleRepository } from "./vehicle-repository";
 
 /**
- * Factory function to create a repository for a given entity.
- * @param context 
- * @param  merosObjectCtor
- * @returns repository
+ * The create repository function signature
  */
-const createRepository = <T extends MerosCtor>(context: Context) => (merosObjectCtor: T):
-    T extends Ctor<User>
+export type CreateRepositoryFn<T extends MerosCtor> = T extends Ctor<User>
     ? UserRepository : T extends Ctor<Booking>
     ? BookingRepository : T extends Ctor<Vehicle>
-    ? VehicleRepository : never => {
+    ? VehicleRepository : never
+
+/**
+ * Factory function to create a repository for a given entity.
+ * @param context 
+ * @returns createRepositoryFn
+ */
+const createRepository = (context: Context) => <T extends MerosCtor>(merosObjectCtor: T):
+    CreateRepositoryFn<T> => {
     // Typing is broken here ! todo: find a way to make this not as ugly (infer maybe ?)
     switch (true) {
         case merosObjectCtor as any === User:
