@@ -1,7 +1,9 @@
 <template>
   <main class="home">
     <m-panel class="home__white-board"/>
-    <m-panel class="home__car"/>
+    <m-panel class="home__car">
+      <VehicleCard/>
+    </m-panel>
     <m-panel class="home__reservations">
       <h3>Mes réservations</h3>
         <ReservationView v-for="booking in userBookings" :booking="booking" :key="booking.id"/>
