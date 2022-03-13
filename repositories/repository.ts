@@ -27,7 +27,7 @@ export abstract class Repository<T extends MerosObject>{
 
     constructor(context: Context) {
         this.context = context
-        this.createApi()
+        this.setApi()
     }
 
     /**
@@ -52,7 +52,6 @@ export abstract class Repository<T extends MerosObject>{
      * Get repository for the given entity.
      * This function is setted from the plug ins.
      * @param merosObjectCtor 
-     * @param context 
      * @returns 
      */
     public static of: <T extends MerosCtor>(merosObjectCtor: T) => CreateRepositoryFn<T>
@@ -60,10 +59,9 @@ export abstract class Repository<T extends MerosObject>{
     /**
      * Register the api with the appropriate endpoint for the given repository.
      */
-    private createApi(): void {
+    private setApi(): void {
         // Get the plural name of the entity class to create the api endpoint.
         const endpoint = `${this.Entity.NAME.toLowerCase()}s`
-        console.log(this.Entity.NAME)
         // Create the api
         this.api = new Api({ context: this.context, endpoint })
     }

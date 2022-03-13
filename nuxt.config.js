@@ -41,6 +41,7 @@ export default {
     '@/plugins/context',
     '@/plugins/api',
     '@/plugins/repositories',
+    '@/plugins/services',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
