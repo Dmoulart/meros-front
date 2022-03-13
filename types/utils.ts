@@ -1,4 +1,5 @@
-import { MerosObject } from "~/bo/meros-object";
+import { Data, MerosObject } from "~/bo/meros-object";
+import { User } from "~/bo/user";
 
 
 /**
@@ -15,5 +16,4 @@ export type MerosCtor = { new(...args: any[]): MerosObject };
 /**
  * A particular meros object constructor type signature
  */
-export type MerosObjectCtor<T extends MerosObject> = { new(...args: any[]): T };
-
+export type MerosObjectCtor<T extends MerosObject> = { new(data: Data<T>): T };

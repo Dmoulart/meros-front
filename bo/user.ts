@@ -1,18 +1,18 @@
 import { Booking } from "./booking"
-import { MerosObject } from "./meros-object"
+import { Data, MerosObject } from "./meros-object"
 
 export type Roles = "ROLE_USER" | "ROLE_ADMIN"
-export type UserData = {
-    id?: number
-    names?: string
-    pseudo?: string
-    email?: string
-    share?: number
-    currentMileage?: number
-    estimatedMileage?: number
-    roles?: Array<Roles>
-    bookings?: Array<Booking>
-}
+// export type UserData = {
+//     id?: number
+//     names?: string
+//     pseudo?: string
+//     email?: string
+//     share?: number
+//     currentMileage?: number
+//     estimatedMileage?: number
+//     roles?: Array<Roles>
+//     bookings?: Array<Booking>
+// }
 
 export class User implements MerosObject {
     private _id!: number
@@ -26,7 +26,7 @@ export class User implements MerosObject {
     private _bookings!: Array<Booking>
 
 
-    public constructor(data: UserData) {
+    public constructor(data: Data<User>) {
         const { id, names, pseudo, email, share, currentMileage, estimatedMileage, roles, bookings } = data
         id && (this.id = id)
         names && (this.names = names)

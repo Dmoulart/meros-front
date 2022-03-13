@@ -1,15 +1,15 @@
-import { MerosObject } from "./meros-object"
+import { Data, MerosObject } from "./meros-object"
 import { User } from "./user"
 import { Vehicle } from "./vehicle"
 
-export type ExpanseData = {
-    id: number
-    details: string
-    documents: Array<any>
-    isSettled: boolean
-    reason: string
-    vehicle: Vehicle
-}
+// export type ExpanseData = {
+//     id: number
+//     details: string
+//     documents: Array<any>
+//     isSettled: boolean
+//     reason: string
+//     vehicle: Vehicle
+// }
 
 export class Expanse implements MerosObject {
     private _id!: number
@@ -19,7 +19,7 @@ export class Expanse implements MerosObject {
     private _reason!: string
     private _vehicle!: Vehicle
 
-    public constructor(data: ExpanseData) {
+    public constructor(data: Data<Expanse>) {
         const { id, details, documents, isSettled, reason, vehicle } = data
         this.id = id
         this.details = details

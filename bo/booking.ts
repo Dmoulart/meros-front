@@ -1,19 +1,19 @@
-import { MerosObject } from "./meros-object"
-import { User, UserData } from "./user"
+import { Data, MerosObject } from "./meros-object"
+import { User } from "./user"
 import { Vehicle } from "./vehicle"
 
-export type BookingData = {
-    id?: number
-    informations?: string
-    isCompleted?: boolean
-    isOpen?: boolean
-    startDate?: Date
-    endDate?: Date
-    startMileage?: number | null
-    endMileage?: number | null
-    vehicle?: Vehicle
-    users?: Array<User>
-}
+// export type BookingData = {
+//     id?: number
+//     informations?: string
+//     isCompleted?: boolean
+//     isOpen?: boolean
+//     startDate?: Date
+//     endDate?: Date
+//     startMileage?: number | null
+//     endMileage?: number | null
+//     vehicle?: Vehicle
+//     users?: Array<User>
+// }
 
 export class Booking implements MerosObject {
     private _id!: number
@@ -27,7 +27,7 @@ export class Booking implements MerosObject {
     private _vehicle!: Vehicle
     private _users!: Array<User>
 
-    public constructor(data: BookingData) {
+    public constructor(data: Data<Booking>) {
         const {
             id,
             informations,
@@ -118,17 +118,17 @@ export class Booking implements MerosObject {
         this._vehicle = value
     }
 
-    public get users(): Array<User> | Array<UserData> {
+    public get users(): Array<User> | Array<Data<User>> {
         return this._users
     }
-    public set users(value: Array<User> | Array<UserData>) {
+    public set users(value: Array<User> | Array<Data<User>>) {
         if (!value.length) return
 
         if (value[0] instanceof User) {
             this._users = value as Array<User>
         }
         else {
-            this._users = value.map((data: UserData) => new User(data))
+            this._users = value.map((data: Data<User>) => new User(data))
         }
     }
 }

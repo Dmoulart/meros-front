@@ -19,17 +19,19 @@ import { Booking } from '~/bo/booking'
 import { Context } from '@nuxt/types'
 import { List } from 'immutable'
 import { User } from '~/bo/user'
+import { Repository } from '~/repositories/repository'
 @Component({})
 export default class Home extends MVue {
   layout = 'Main'
   userBookings: List<Booking> = List()
 
-  async asyncData ({ $bookings, $auth, $repositories } : Context) {
+  async asyncData ({ $auth } : Context) {
     const user = ($auth.user as unknown as User)
     const userBookings = List(user.bookings).slice(0, 3)
-
-    const cars = await $repositories.vehicles.getVehicles(1)
-    console.log('vehicles', cars)
+    console.log(Repository)
+    //const repo = Repos
+    //const cars = await Repository
+    //console.log('vehicles', cars)
     return {
       userBookings
     }

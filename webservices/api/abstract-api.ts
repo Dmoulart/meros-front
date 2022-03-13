@@ -5,8 +5,9 @@ import { MerosObject } from '~/bo/meros-object'
 
 export type ApiOptions = {
     context: Context
+    endpoint?: string
 }
-export abstract class AbstractApi<T extends MerosObject> {
+export abstract class AbstractApi {
 
     /**
      * The http client instance. We use it to fetch the data from the API.
@@ -21,14 +22,15 @@ export abstract class AbstractApi<T extends MerosObject> {
     /**
      * The endpoint will define the entities this API instance will fetch.
      */
-    protected abstract endpoint: string
+    protected endpoint!: string
 
-    constructor({ context }: ApiOptions) {
+    constructor({ context, endpoint }: ApiOptions) {
         this.context = context
         this.client = context.$http
         this.client.onRequest((config) => {
             config.headers.get('Authorization') || this.client.setToken(this.token, 'Bearer')
         })
+        this.endpoint = endpoint ?? ''
     }
 
     /**
@@ -44,7 +46,7 @@ export abstract class AbstractApi<T extends MerosObject> {
      * @param path 
      * @returns data
      */
-    public async get(path: string = ''): Promise<T | Array<T>> {
+    public async get(path: string = ''): Promise<any> {
         return await this.client.$get(this.url(path))
     }
 
@@ -53,7 +55,7 @@ export abstract class AbstractApi<T extends MerosObject> {
      * @param path 
      * @returns data
      */
-    public async post(path: string, body: RequestBody): Promise<T | Array<T>> {
+    public async post(path: string, body: RequestBody): Promise<any> {
         return await this.client.$post(this.url(path), body)
     }
 
@@ -62,7 +64,7 @@ export abstract class AbstractApi<T extends MerosObject> {
      * @param path 
      * @returns data
      */
-    public async delete(path: string): Promise<T | Array<T>> {
+    public async delete(path: string): Promise<any> {
         return await this.client.$delete(this.url(path))
     }
 

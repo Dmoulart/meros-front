@@ -40,7 +40,7 @@ export default {
   plugins: [
     '@/plugins/context',
     '@/plugins/api',
-    '@/plugins/bookings',
+    '@/plugins/repositories',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
