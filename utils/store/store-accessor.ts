@@ -1,6 +1,6 @@
 import { Store } from 'vuex'
 import { getModule } from 'vuex-module-decorators'
-import { VehiclesStore } from '~/store/vehicles'
+import VehiclesStore from '~/store/vehicles'
 
 let vehiclesStore: VehiclesStore
 

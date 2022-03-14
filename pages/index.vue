@@ -44,14 +44,6 @@ export default class Home extends MVue {
   async mounted(){
     const vehicles = await Service.of(Vehicle).get(1)
     vehiclesStore.setList(vehicles)
-    this.$store.commit('todos/add', 'aadd')
-
-    console.log(this.$store.state.todos.list)
-    // console.log(vehicles)
-    // console.log(this.$store.commit('vehicles/setList', vehicles))
-    // console.log(vehiclesStore.list)
-    // console.log(this.$store)
-    // console.log(vehiclesStore)
   }
 
 }

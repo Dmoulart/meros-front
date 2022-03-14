@@ -7,7 +7,7 @@ import { List } from 'immutable'
     stateFactory: true,
     namespaced: true
 })
-export class VehiclesStore extends VuexModule {
+export default class VehiclesStore extends VuexModule {
     /**
      * The list of all vehicles
      */
