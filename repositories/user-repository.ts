@@ -16,4 +16,5 @@ export class UserRepository extends Repository<User>{
     protected get Entity() {
         return User
     }
+
 }

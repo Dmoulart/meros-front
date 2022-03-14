@@ -2,7 +2,9 @@
   <main class="home">
     <m-panel class="home__white-board"/>
     <m-panel class="home__car">
-      <VehicleCard/>
+      <div v-for="(vehicle,i) in vehicles" v-bind:key="i">
+        {{vehicle.name}}
+      </div>
     </m-panel>
     <m-panel class="home__reservations">
       <h3>Mes réservations</h3>
@@ -13,39 +15,40 @@
 </template>
 
 <script lang="ts">
-import { Component } from 'nuxt-property-decorator'
+import { Component, Getter } from 'nuxt-property-decorator'
 import { MVue } from '~/mixins/m-vue'
 import { Booking } from '~/bo/booking'
 import { Context } from '@nuxt/types'
 import { List } from 'immutable'
 import { User } from '~/bo/user'
-import { Vehicle } from '~/bo/vehicle'
 import { vehiclesStore } from '~/utils/store/store-accessor'
-import { Service } from '~/services/service'
+import VehiclesStore from '~/store/vehicles'
 @Component({})
 export default class Home extends MVue {
+  /**
+   * The layout file we use for this page. We'll use the main layout which include the sidebar.
+   */
   layout = 'Main'
+
+  /**
+   * Get vehicles
+   */
+  @Getter('list', { namespace: 'vehicles' })
+  vehicles!: VehiclesStore['list']
+
   userBookings: List<Booking> = List()
 
-  async asyncData ({ $auth, $service } : Context) {
+  async asyncData (context : Context) {
+    const {$auth} = context
     const user = ($auth.user as unknown as User)
     const userBookings = List(user.bookings).slice(0, 3)
-    const vehicles = $service(Vehicle)
-    const list = await vehicles.get()
-    list.forEach(v => console.log(v.name))
-    vehiclesStore.setList(list)
-    console.log(vehiclesStore.list)
-    //console.log(vehiclesStore)
+
+    await vehiclesStore.fetch()
+
     return {
       userBookings
     }
   }
-
-  async mounted(){
-    const vehicles = await Service.of(Vehicle).get(1)
-    vehiclesStore.setList(vehicles)
-  }
-
 }
 </script>
 <style lang="scss">

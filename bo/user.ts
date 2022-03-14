@@ -6,15 +6,15 @@ export type Roles = "ROLE_USER" | "ROLE_ADMIN"
 export class User implements MerosObject {
     public static readonly NAME = "User"
 
-    private _id!: number
-    private _names!: string
-    private _pseudo!: string
-    private _email!: string
-    private _share!: number
-    private _currentMileage!: number
-    private _estimatedMileage!: number
-    private _roles!: Array<Roles>
-    private _bookings!: Array<Booking>
+    public id!: number
+    public names!: string
+    public pseudo!: string
+    public email!: string
+    public share!: number
+    public currentMileage!: number
+    public estimatedMileage!: number
+    public roles!: Array<Roles>
+    public bookings!: Array<Booking>
 
 
     public constructor(data: Data<User>) {
@@ -30,66 +30,4 @@ export class User implements MerosObject {
         bookings && (this.bookings = bookings)
     }
 
-    public get id(): number {
-        return this._id
-    }
-    public set id(value: number) {
-        this._id = value
-    }
-
-    public get names(): string {
-        return this._names
-    }
-    public set names(value: string) {
-        this._names = value
-    }
-
-    public get pseudo(): string {
-        return this._pseudo
-    }
-    public set pseudo(value: string) {
-        this._pseudo = value
-    }
-
-    public get email(): string {
-        return this._email
-    }
-    public set email(value: string) {
-        this._email = value
-    }
-
-    public get share(): number {
-        return this._share
-    }
-    public set share(value: number) {
-        this._share = value
-    }
-
-    public get currentMileage(): number {
-        return this._currentMileage
-    }
-    public set currentMileage(value: number) {
-        this._currentMileage = value
-    }
-
-    public get estimatedMileage(): number {
-        return this._estimatedMileage
-    }
-    public set estimatedMileage(value: number) {
-        this._estimatedMileage = value
-    }
-
-    public get roles(): Array<Roles> {
-        return this._roles
-    }
-    public set roles(value: Array<Roles>) {
-        this._roles = value
-    }
-
-    public get bookings(): Array<Booking> {
-        return this._bookings
-    }
-    public set bookings(value: Array<Booking>) {
-        this._bookings = value
-    }
 }
