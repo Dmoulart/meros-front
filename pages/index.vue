@@ -2,13 +2,13 @@
   <main class="home">
     <m-panel class="home__white-board"/>
     <m-panel class="home__car">
-      <div v-for="(vehicle,i) in vehicles" v-bind:key="i">
+      <div v-for="(vehicle,i) in vehicles.slice(3)" v-bind:key="i">
         {{vehicle.name}}
       </div>
     </m-panel>
     <m-panel class="home__reservations">
       <h3>Mes réservations</h3>
-        <ReservationView v-for="booking in userBookings" :booking="booking" :key="booking.id"/>
+        <ReservationView v-for="booking in user.bookings.slice(0,3)" :booking="booking" :key="booking.id"/>
     </m-panel>
     <m-panel class="home__kilometers"/>
   </main>
@@ -17,11 +17,7 @@
 <script lang="ts">
 import { Component, Getter } from 'nuxt-property-decorator'
 import { MVue } from '~/mixins/m-vue'
-import { Booking } from '~/bo/booking'
-import { Context } from '@nuxt/types'
-import { List } from 'immutable'
-import { User } from '~/bo/user'
-import { vehiclesStore } from '~/utils/store/store-accessor'
+import { Stores } from '~/utils/store/store-accessor'
 import VehiclesStore from '~/store/vehicles'
 @Component({})
 export default class Home extends MVue {
@@ -31,23 +27,13 @@ export default class Home extends MVue {
   layout = 'Main'
 
   /**
-   * Get vehicles
+   * Get all vehicles
    */
-  @Getter('list', { namespace: 'vehicles' })
-  vehicles!: VehiclesStore['list']
+  @Getter('all', { namespace: 'vehicles' })
+  vehicles!: VehiclesStore['all']
 
-  userBookings: List<Booking> = List()
-
-  async asyncData (context : Context) {
-    const {$auth} = context
-    const user = ($auth.user as unknown as User)
-    const userBookings = List(user.bookings).slice(0, 3)
-
-    await vehiclesStore.fetch()
-
-    return {
-      userBookings
-    }
+  async asyncData () {
+    await Stores.vehicles.fetchAll()
   }
 }
 </script>

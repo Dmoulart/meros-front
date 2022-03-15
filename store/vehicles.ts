@@ -22,15 +22,15 @@ export default class Vehicles extends VuexModule {
     /**
      * The list of all vehicles
      */
-    private _list: List<Vehicle> = List()
+    private _all: List<Vehicle> = List()
 
     /**
      * Set the total list of vehicles.
      * @param vehicles 
      */
     @Mutation
-    setList(vehicles: List<Vehicle>) {
-        this._list = vehicles
+    setAll(vehicles: List<Vehicle>) {
+        this._all = vehicles
     }
 
     /**
@@ -38,8 +38,8 @@ export default class Vehicles extends VuexModule {
      * @param page 
      * @returns list of vehicles
      */
-    @Action({ commit: 'setList', rawError: true })
-    async fetch(page = 1): Promise<List<Vehicle>> {
+    @Action({ commit: 'setAll', rawError: true })
+    async fetchAll(page = 1): Promise<List<Vehicle>> {
         return await Service.of(Vehicle).get(page)
     }
 
@@ -47,7 +47,7 @@ export default class Vehicles extends VuexModule {
      * Get the list of all vehicles.
      * @returns list of vehicles
      */
-    get list(): List<Vehicle> {
-        return this._list
+    get all(): List<Vehicle> {
+        return this._all
     }
 }
